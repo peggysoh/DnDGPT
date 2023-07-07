@@ -1,6 +1,15 @@
-<!-- base.html -->
+<!DOCTYPE html>
 {% load static %}
-{% block <block_name> %}
-    <p> PlaceHolder to be Replaced</p>
-{% endblock %} 
+<html lang="en">
+    <head>
+        <title>{% block title %}My amazing site{% endblock %}</title>
+    </head>
+    <body>
+        <div id="content">
+            {% block content %} {% endblock %} 
+        </div>
+    </body>
 <link rel="shortcut icon" type="image/svg+xml" href="{% static 'images/favicon.svg' %}">
+<link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
+</html>

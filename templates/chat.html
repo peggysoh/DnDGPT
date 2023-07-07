@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
+{% block title %}DnDGPT{% endblock %}
 {% block content %}
-    <h1><i class="fa-solid fa-hat-wizard"></i>DnD Bot</h1>
+<h1>DnDGPT</h1>
     <div id="conversation">
         {% for message in conversation %}
             {% if message.role == 'user' %}
-                <div class="user-messages"><p>You: {{ message.content }}</p></div>
+                <div class="user-messages"><p><i class="fa-solid fa-user role"></i></i>{{ message.content }}</p></div>
             {% elif message.role == 'assistant' %}
-                <div class="dndbot-messages"><p>DnDBot: {{ message.content }}</p></div>
+                <div class="dndbot-messages"><p><i class="fa-solid fa-hat-wizard role"></i>{{ message.content }}</p></div>
             {% endif %}
         {% endfor %}
     </div>       
@@ -33,11 +34,11 @@
             // Submit the form when the user presses Enter key
             userInput.addEventListener('keypress', (event) => {
                 if (event.key === 'Enter') {
-                    event.preventDefault();
-                    chatForm.submit();
+                    // event.preventDefault();
+                    // chatForm.submit();
                 } else {
-                    event.preventDefault();
-                    clearForm.submit();
+                    // event.preventDefault();
+                    // clearForm.submit();
                 }
             });
 
@@ -46,46 +47,52 @@
         });
     </script> 
     <style>
+        div {
+            font-family: Söhne,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,Helvetica Neue,Arial,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+        }
         #conversation {
-            height: 500px;
-            border: 1px solid #000;
+            height: 70vmin;
             margin-bottom: 10px;
             overflow-y: scroll;
-            background-color: #cfd3e1;
-            border-radius: 10px;
+            overflow-x: hidden;
+            background-color: #fff;
         }
         .container {
             display: flex;
         }
 
         .container textarea {
-            flex: 1;
-            margin-right: 10px;
+            flex: auto;
             font-size: 16px;
-            border-radius: 10px;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            padding: 10px;
         }
 
         .container input[type="submit"] {
-            flex-shrink: 0;
             background: #264c5e;
             color: #fff;
             border: 0px;
             padding: 8px 16px;
             font-size: 14px;
             cursor: pointer;
-            border-radius: 10px;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
         }
         .user-messages{
-            width: 100%;
-            padding: 10px;
-            background: #343541;
-            color: #fff;
+            width: inherit;
+            padding: 10px 3rem;
+            background: #fff;
+            color: #374151;
         }
-        .chatbot-messages{
-            width: 100%;
-            padding: 10px;
-            background: #444655;
-            color: #fff;
+        .dndbot-messages{
+            width: inherit;
+            padding: 10px 3rem;
+            background: #f7f7f8;
+            color: #374151;
+        }
+        .role {
+            padding-right: 15px;
         }
     </style>
 {% endblock %}
