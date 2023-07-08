@@ -19,5 +19,6 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name="index"),
-    path('chat/', views.dndbot_view, name="dndbot_view")
+    path('chat/', views.dndbot_get, name="dndbot_get"),
+    path('chat/submit', views.dndbot_post, name="dndbot_post")
 ]
