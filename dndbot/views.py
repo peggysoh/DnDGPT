@@ -1,10 +1,9 @@
 import os
 import openai
 
-from django.http import HttpResponse
 from django.shortcuts import render
 from dotenv import load_dotenv
-from django.http import JsonResponse
+from django.shortcuts import redirect
 
 # Set OpenAI API Key
 load_dotenv()
@@ -20,7 +19,7 @@ class style():
   RESET = '\033[0m'
 
 def index(request):
-    return HttpResponse("Hello, world.")
+    return render(request, "index.html")
 
 def dndbot_get(request):
     conversation = request.session.get("conversation", [])
@@ -86,7 +85,7 @@ def dndbot_post(request):
 
         # update the conversation in the session
         request.session["conversation"] = conversation
-        return render(request, "chat.html", {"conversation": conversation})
+        return redirect('dndbot_get')
     else:
         print(f"{style.RED}clearing session...{style.RESET}")
         request.session.clear()

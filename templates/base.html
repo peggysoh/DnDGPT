@@ -6,6 +6,7 @@
     </head>
     <body>
         <div id="content">
+            <h1><i class="fa-solid fa-hat-wizard header-icon"></i>DnDGPT</h1>
             {% block content %} {% endblock %} 
         </div>
     </body>
@@ -13,3 +14,45 @@
 <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
 <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
 </html>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<style>
+    #content {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+    div {
+        font-family: Söhne,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,Helvetica Neue,Arial,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+    }
+    h1 {
+        display: flex;
+        justify-content: center;
+    }
+    .header-icon {
+        padding-right: 15px;
+        color: #264c5e;
+        font-size: 45px;
+    }
+    .break {
+        flex-basis: 100%;
+        height: 0;
+    }
+    .row {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+    }
+    .column {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 100%;
+        flex: 1;
+    }
+    .double-column {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 100%;
+        flex: 12;
+    }
+</style>
