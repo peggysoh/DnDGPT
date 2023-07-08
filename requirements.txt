@@ -1,2 +1,4 @@
+Django==4.2.3
 openai==0.27.1
+python-dotenv==1.0.0
 fontawesomefree==6.4.0
