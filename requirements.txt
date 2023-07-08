@@ -1,0 +1,2 @@
+openai==0.27.1
+fontawesomefree==6.4.0
