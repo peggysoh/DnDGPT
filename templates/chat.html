@@ -4,9 +4,23 @@
     <div id="conversation">
         {% for message in conversation %}
             {% if message.role == 'user' %}
-                <div class="user-messages"><p><i class="fa-solid fa-user user-role"></i></i>{{ message.content }}</p></div>
+                <div class="self messages">
+                    <div class="user message">
+                        <p class="msg-content">
+                            {{ message.content }}
+                            <i class="fa-solid fa-user user-role"></i>
+                        </p>
+                    </div>
+                </div>
             {% elif message.role == 'assistant' %}
-                <div class="dndbot-messages"><p><i class="fa-solid fa-hat-wizard bot-role"></i>{{ message.content }}</p></div>
+                <div class="bot messages">
+                    <div class="dndbot message">
+                        <p class="msg-content">
+                            <i class="fa-solid fa-hat-wizard bot-role"></i>
+                            {{ message.content }}
+                        </p>
+                    </div>
+                </div>
             {% endif %}
         {% endfor %}
     </div>       
@@ -67,6 +81,10 @@
             overflow-y: scroll;
             overflow-x: hidden;
             background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            width: 100vw;
+            align-items: center;
         }
         .container {
             display: flex;
@@ -91,20 +109,39 @@
             border-bottom-right-radius: 10px;
             height: 100%;
         }
-        .user-messages{
-            width: inherit;
-            padding: 10px 3rem;
-            background: #fff;
+        .message {
+            border-radius: 20px;
+            padding: 8px 15px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            display: inline-block;
+        }
+        .user {
+            justify-content: flex-end;
+            display: flex;
+            flex-direction: row;
+            background: #0078fe;
+        }
+        .dndbot {
+            justify-content: flex-start;
+            display: flex;
+            flex-direction: row;
+            background: #EEE;
+        }
+        .bot {
+            align-self: start;
             color: #374151;
         }
-        .dndbot-messages{
-            width: inherit;
+        .self {
+            align-self: end;
+            color: #fff;
+        }
+        .messages {
             padding: 10px 3rem;
-            background: #f7f7f8;
-            color: #374151;
+            max-width: 80vw;
         }
         .user-role {
-            padding-right: 15px;
+            padding-left: 15px;
             color: #a34c50;
             font-size: 20px;
         }
@@ -112,6 +149,11 @@
             padding-right: 15px;
             color: #264c5e;
             font-size: 20px;
+        }
+        .msg-content {
+            display: flex;
+            justify-content: space-around;
+            flex-direction: row;
         }
     </style>
 {% endblock %}
