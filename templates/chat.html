@@ -1,6 +1,8 @@
 {% extends 'base.html' %} {% block navlink1 %}
 <a href="#">Characters</a>
 {% endblock %} {% block navlink2 %}
+<a href="#" class="active">Chat</a>
+{% endblock %} {% block navlink3 %}
 <a href="#">Start over</a>
 {% endblock %} {% block content %}
 <div id="conversation">
@@ -127,7 +129,7 @@
     justify-content: flex-end;
     display: flex;
     flex-direction: row;
-    background: #0078fe;
+    background: #264c5e;
   }
   .dndbot {
     justify-content: flex-start;
@@ -149,7 +151,7 @@
   }
   .user-role {
     padding-left: 15px;
-    color: #a34c50;
+    color: #fff;
     font-size: 20px;
   }
   .bot-role {

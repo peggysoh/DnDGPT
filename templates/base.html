@@ -12,6 +12,7 @@
       <ul class="nav-links">
         <li>{% block navlink1 %}{% endblock %}</li>
         <li>{% block navlink2 %}{% endblock %}</li>
+        <li>{% block navlink3 %}{% endblock %}</li>
       </ul>
     </nav>
     <div id="content" class="content">{% block content %} {% endblock %}</div>
@@ -107,17 +108,18 @@
     list-style: none;
   }
   .nav-links a {
-    color: white;
+    color: #ffffffc4;
     text-decoration: none;
     letter-spacing: 3px;
     font-weight: bold;
     font-size: 14px;
-    padding: 14px 16px;
+    padding: 10px 5px;
   }
   .nav-links a:hover:not(.active) {
-    background-color: lightseagreen;
+    color: #fff;
   }
   .nav-links li a.active {
-    background-color: #4caf50;
+    border-bottom: 1.5px solid #fff;
+    color: #fff;
   }
 </style>
