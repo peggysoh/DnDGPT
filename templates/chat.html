@@ -1,159 +1,164 @@
-{% extends 'base.html' %}
-{% block title %}DnDGPT{% endblock %}
-{% block content %}
-    <div id="conversation">
-        {% for message in conversation %}
-            {% if message.role == 'user' %}
-                <div class="self messages">
-                    <div class="user message">
-                        <p class="msg-content">
-                            {{ message.content }}
-                            <i class="fa-solid fa-user user-role"></i>
-                        </p>
-                    </div>
-                </div>
-            {% elif message.role == 'assistant' %}
-                <div class="bot messages">
-                    <div class="dndbot message">
-                        <p class="msg-content">
-                            <i class="fa-solid fa-hat-wizard bot-role"></i>
-                            {{ message.content }}
-                        </p>
-                    </div>
-                </div>
-            {% endif %}
-        {% endfor %}
-    </div>       
-    <form id="chat-form" method="POST" action="{% url 'dndbot_post' %}">
-        {% csrf_token %}
-        <div class="container">
-            <div class="row">
-                <div class="double-column">
-                    <textarea rows="3" class="centered-textarea" id="user-input" type="text" name="user_input" placeholder="Your message"></textarea>
-                </div>
-                <div class="column">
-                    <input type="submit" value="Send">
-                </div>
-            </div>
-        </div>
-    </form>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const chatForm = document.getElementById('chat-form');
-            const userInput = document.getElementById('user-input');
-            const conversation = document.getElementById('conversation');
+{% extends 'base.html' %} {% block navlink4 %}
+<a href="#">Start over</a>
+{% endblock %} {% block content %}
+<div id="conversation">
+  {% for message in conversation %} {% if message.role == 'user' %}
+  <div class="self messages">
+    <div class="user message">
+      <p class="msg-content">
+        {{ message.content }}
+        <i class="fa-solid fa-user user-role"></i>
+      </p>
+    </div>
+  </div>
+  {% elif message.role == 'assistant' %}
+  <div class="bot messages">
+    <div class="dndbot message">
+      <p class="msg-content">
+        <i class="fa-solid fa-hat-wizard bot-role"></i>
+        {{ message.content }}
+      </p>
+    </div>
+  </div>
+  {% endif %} {% endfor %}
+</div>
+<form id="chat-form" method="POST" action="{% url 'dndbot_post' %}">
+  {% csrf_token %}
+  <div class="container">
+    <div class="row">
+      <div class="double-column">
+        <textarea
+          rows="3"
+          class="centered-textarea"
+          id="user-input"
+          type="text"
+          name="user_input"
+          placeholder="Your message"
+        ></textarea>
+      </div>
+      <div class="column">
+        <input type="submit" value="Send" />
+      </div>
+    </div>
+  </div>
+</form>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const chatForm = document.getElementById("chat-form");
+    const userInput = document.getElementById("user-input");
+    const conversation = document.getElementById("conversation");
 
-            // Scroll conversation to the bottom
-            conversation.scrollTop = conversation.scrollHeight;
+    // Scroll conversation to the bottom
+    conversation.scrollTop = conversation.scrollHeight;
 
-            // Submit the form when the user presses Enter key
-            userInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    chatForm.submit();
-                }
-            });
+    // Submit the form when the user presses Enter key
+    userInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        chatForm.submit();
+      }
+    });
 
-            // Focus on the user input field
-            userInput.focus();
-        });
+    // Focus on the user input field
+    userInput.focus();
+  });
 
-        $(document).ready(function() {
-            $('#chat-form').on('submit', (e) => {
-                e.preventDefault();
-                $.ajax({
-                    type:"POST",
-                    url: "{% url 'dndbot_post' %}",
-                    data:  $('#chat-form').serialize(),
-                    success: function(data){
-                        //$("#result").text(data["result"]);
-                        console.log(data);
-                        $('body').html(data);
-                    }
-                });
-            });
-        });
-    </script> 
-    <style>
-        #conversation {
-            height: 70vmin;
-            margin-bottom: 10px;
-            overflow-y: scroll;
-            overflow-x: hidden;
-            background-color: #fff;
-            display: flex;
-            flex-direction: column;
-            width: 100vw;
-            align-items: center;
-        }
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-        }
-        .container textarea {
-            flex: auto;
-            font-size: 16px;
-            border-top-left-radius: 10px;
-            border-bottom-left-radius: 10px;
-            padding: 10px;
-            resize: none;
-        }
-        .container input[type="submit"] {
-            background: #264c5e;
-            color: #fff;
-            border: 0px;
-            padding: 8px 16px;
-            font-size: 14px;
-            cursor: pointer;
-            border-top-right-radius: 10px;
-            border-bottom-right-radius: 10px;
-            height: 100%;
-        }
-        .message {
-            border-radius: 20px;
-            padding: 8px 15px;
-            margin-top: 5px;
-            margin-bottom: 5px;
-            display: inline-block;
-        }
-        .user {
-            justify-content: flex-end;
-            display: flex;
-            flex-direction: row;
-            background: #0078fe;
-        }
-        .dndbot {
-            justify-content: flex-start;
-            display: flex;
-            flex-direction: row;
-            background: #EEE;
-        }
-        .bot {
-            align-self: start;
-            color: #374151;
-        }
-        .self {
-            align-self: end;
-            color: #fff;
-        }
-        .messages {
-            padding: 10px 3rem;
-            max-width: 80vw;
-        }
-        .user-role {
-            padding-left: 15px;
-            color: #a34c50;
-            font-size: 20px;
-        }
-        .bot-role {
-            padding-right: 15px;
-            color: #264c5e;
-            font-size: 20px;
-        }
-        .msg-content {
-            display: flex;
-            justify-content: space-around;
-            flex-direction: row;
-        }
-    </style>
+  $(document).ready(function () {
+    $("#chat-form").on("submit", (e) => {
+      e.preventDefault();
+      $.ajax({
+        type: "POST",
+        url: "{% url 'dndbot_post' %}",
+        data: $("#chat-form").serialize(),
+        success: function (data) {
+          //$("#result").text(data["result"]);
+          console.log(data);
+          $("body").html(data);
+        },
+      });
+    });
+  });
+</script>
+<style>
+  #conversation {
+    height: 70vmin;
+    margin-bottom: 10px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    align-items: center;
+  }
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .container textarea {
+    flex: auto;
+    font-size: 16px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    padding: 10px;
+    resize: none;
+  }
+  .container input[type="submit"] {
+    background: #264c5e;
+    color: #fff;
+    border: 0px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    height: 100%;
+  }
+  .message {
+    border-radius: 20px;
+    padding: 8px 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: inline-block;
+  }
+  .user {
+    justify-content: flex-end;
+    display: flex;
+    flex-direction: row;
+    background: #0078fe;
+  }
+  .dndbot {
+    justify-content: flex-start;
+    display: flex;
+    flex-direction: row;
+    background: #eee;
+  }
+  .bot {
+    align-self: start;
+    color: #374151;
+  }
+  .self {
+    align-self: end;
+    color: #fff;
+  }
+  .messages {
+    padding: 10px 3rem;
+    max-width: 80vw;
+  }
+  .user-role {
+    padding-left: 15px;
+    color: #a34c50;
+    font-size: 20px;
+  }
+  .bot-role {
+    padding-right: 15px;
+    color: #264c5e;
+    font-size: 20px;
+  }
+  .msg-content {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+  }
+</style>
 {% endblock %}
