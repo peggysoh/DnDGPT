@@ -29,6 +29,12 @@
   </script>
 </body>
 <style>
+  .content {
+    background: url("/static/images/d20.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center left;
+  }
   .container {
     display: flex;
     flex-wrap: wrap;
@@ -50,12 +56,9 @@
     text-transform: uppercase;
     letter-spacing: 5px;
   }
-  body {
-    background: url("/static/images/d20.jpg");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center left;
+  html {
     background-color: #7ab6d0;
+    min-height: 100%;
   }
   .subtitle {
     color: #fff;
