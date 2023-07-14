@@ -45,9 +45,9 @@ def dndbot_post(request):
         prompts.extend(conversation)
 
         # setup and invoke GPT model
-        #print(f"{style.GREEN}messages sent: {prompts}{style.RESET}") 
+        # print(f"{style.GREEN}messages sent: {prompts}{style.RESET}") 
         # response = openai.ChatCompletion.create(
-        #     model="gpt-3.5-turbo",
+        #     model="gpt-3.5-turbo-16k",
         #     messages=prompts
         # )
         
