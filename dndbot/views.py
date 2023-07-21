@@ -86,7 +86,8 @@ def dndbot_post(request):
         # update the conversation in the session
         request.session["conversation"] = conversation
         return redirect('dndbot_get')
-    else:
+
+def dndbot_clear(request):
         print(f"{style.RED}clearing session...{style.RESET}")
         request.session.clear()
-        return render(request, "chat.html", {"conversation": conversation})
+        return redirect('index')

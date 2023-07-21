@@ -3,7 +3,7 @@
 {% endblock %} {% block navlink2 %}
 <a href="#" class="active">Chat</a>
 {% endblock %} {% block navlink3 %}
-<a href="#">Start over</a>
+<a href="{% url 'dndbot_clear' %}">Start over</a>
 {% endblock %} {% block content %}
 <div id="conversation">
   {% for message in conversation %} {% if message.role == 'user' %}
