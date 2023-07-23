@@ -75,6 +75,8 @@
     </div>
 
     <script>
+      const selfTemplate = '.self-template';
+      const botTemplate = '.bot-template';
       const conversation = document.getElementById("conversation");
       const userInput = document.getElementById("user-input");
       const sendButton = document.getElementById("chat-submit");
@@ -85,14 +87,11 @@
       chatSocket.onmessage = function (e) {
         const data = JSON.parse(e.data);
         console.log("echoing back:", data);
+        cloneTemplate(botTemplate, data.response.content);
 
-        let userMsg = $('.self-template').clone();
-        let userMsgText = userMsg.find('.msg-content-text');
-        userMsgText.html(data.message);
-        userMsg.removeClass('.self-template');
-        userMsg.removeAttr('hidden');
-
-        conversation.append(userMsg[0]);
+        sendButton.removeAttribute('disabled');
+        userInput.removeAttribute('disabled');
+        focusChat();
       };
 
       chatSocket.onclose = function (e) {
@@ -100,9 +99,6 @@
       };
 
       document.addEventListener("DOMContentLoaded", () => {
-        // Scroll conversation to the bottom
-        conversation.scrollTop = conversation.scrollHeight;
-
         // Submit the form when the user presses Enter key
         userInput.addEventListener("keypress", (e) => {
           if (e.key === "Enter") {
@@ -120,18 +116,38 @@
           }
         })
 
-        // Focus on the user input field
-        userInput.focus();
+        focusChat();
       });
 
       sendButton.onclick = function (e) {
-        const message = userInput.value;
-        chatSocket.send(
-          JSON.stringify({
-            message: message,
-          })
-        );
+        sendButton.setAttribute('disabled', true);
+        userInput.setAttribute('disabled', true);
+
+        const message = JSON.stringify({
+            userInput: userInput.value
+          });
+        chatSocket.send(message);
+        cloneTemplate(selfTemplate, userInput.value);
         userInput.value = "";
       };
+
+      function cloneTemplate(templateClass, message) {
+        let template = $(templateClass).clone();
+        let templateContentText = template.find('.msg-content-text');
+        templateContentText.html(message);
+        template.removeClass(templateClass);
+        template.removeAttr('hidden');
+
+        conversation.append(template[0]);
+        focusChat();
+      }
+
+      function focusChat() {
+        // Scroll conversation to the bottom
+        conversation.scrollTop = conversation.scrollHeight;
+
+        // Focus on the user input field
+        userInput.focus();
+      }
     </script>
 {% endblock %}
