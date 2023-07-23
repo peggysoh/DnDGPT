@@ -93,11 +93,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
         for reply in replies:
             conversation.append({"role": "assistant", "content": reply})
 
+        # save session
         session_data["conversation"] = conversation
         self.scope['session'].update(session_data)
         await sync_to_async(self.scope["session"].save)()
-
-        new_session_data = await sync_to_async(self.scope["session"].load)()
-        print(f"{style.BLUE}new_session_data: {new_session_data}{style.RESET}")
+        print(f"{style.BLUE}new_session_data: {conversation}{style.RESET}")
 
         await self.send(text_data=json.dumps({"response": conversation[-1]}))
