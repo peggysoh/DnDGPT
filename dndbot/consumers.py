@@ -4,9 +4,7 @@ import openai
 
 from asgiref.sync import sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
-from django.shortcuts import render
 from dotenv import load_dotenv
-from django.shortcuts import redirect
 
 # Set OpenAI API Key
 load_dotenv()
