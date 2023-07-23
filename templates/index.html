@@ -1,70 +1,32 @@
-{% extends 'base.html' %} {% block content %}
-<body>
-  <div class="container">
-    <div class="row" style="text-align: center">
-      <div class="column"></div>
-      <div class="column"></div>
-      <div class="column"></div>
-      <div class="column">
-        <span class="subtitle">Are you ready to play?</span>
-      </div>
-      <div class="column"></div>
-    </div>
-    <div class="break"></div>
-    <div class="row" style="margin-top: 25px">
-      <div class="column"></div>
-      <div class="column"></div>
-      <div class="column"></div>
-      <div class="column">
-        <input id="enter-chat" type="button" value="Let's Go!" />
-      </div>
-      <div class="column"></div>
-    </div>
-  </div>
-
-  <script>
-    document.querySelector("#enter-chat").onclick = function (e) {
-      window.location.pathname = "/chat/";
-    };
-  </script>
-</body>
-<style>
-  .content {
-    background: url("/static/images/d20.jpg");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: 20% center;
-  }
-  .container {
-    display: flex;
-    flex-wrap: wrap;
-    height: 75vh;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-  }
-  .container input[type="button"] {
-    background: #264c5e;
-    color: #fff;
-    border: 0px;
-    padding: 25px 75px;
-    font-size: 14px;
-    cursor: pointer;
-    border-radius: 10px;
-    height: 100%;
-    font-family: "Montserrat", sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 5px;
-  }
-  html {
-    background-color: #7ab6d0;
-    min-height: 100%;
-  }
-  .subtitle {
-    color: #fff;
-    letter-spacing: 3px;
-    font-size: 18px;
-    font-weight: 500;
-  }
-</style>
+{% extends 'base.html' %}
+{% load static %}
+{% block pagestylesheet %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+{% endblock %}
+{% block content %}
+    <body>
+        <div class="container">
+            <div class="row center-text">
+                <div class="column"></div>
+                <div class="column"></div>
+                <div class="column"></div>
+                <div class="column">
+                    <span class="subtitle">Are you ready to play?</span>
+                </div>
+                <div class="column"></div>
+            </div>
+            <div class="break"></div>
+            <div class="row pad-top">
+                <div class="column"></div>
+                <div class="column"></div>
+                <div class="column"></div>
+                <div class="column">
+                    <a href="{% url 'dndbot_get' %}">
+                        <button type="button" id="enter-chat">Let's Go!</button>
+                    </a>
+                </div>
+                <div class="column"></div>
+            </div>
+        </div>
+    </body>
 {% endblock %}

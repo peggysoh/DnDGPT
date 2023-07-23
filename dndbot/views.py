@@ -9,24 +9,30 @@ from django.shortcuts import redirect
 load_dotenv()
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 if openai.api_key is None:
-    raise ValueError("OpenAI API Key not set as environnment variable OPENAI_API_KEY")
+    raise ValueError(
+        "OpenAI API Key not set as environnment variable OPENAI_API_KEY")
 
 os.system("")
+
+
 class style():
-  RED = '\033[31m'
-  GREEN = '\033[32m'
-  BLUE = '\033[34m'
-  RESET = '\033[0m'
+    RED = '\033[31m'
+    GREEN = '\033[32m'
+    BLUE = '\033[34m'
+    RESET = '\033[0m'
+
 
 def index(request):
     return render(request, "index.html")
+
 
 def dndbot_get(request):
     conversation = request.session.get("conversation", [])
     print(f"{style.RED}conversation: {conversation}{style.RESET}")
     return render(request, "chat.html", {"conversation": conversation})
 
-def dndbot_post(request): 
+
+def dndbot_post(request):
     conversation = request.session.get("conversation", [])
     print(f"{style.RED}conversation: {conversation}{style.RESET}")
 
@@ -45,23 +51,23 @@ def dndbot_post(request):
         prompts.extend(conversation)
 
         # setup and invoke GPT model
-        # print(f"{style.GREEN}messages sent: {prompts}{style.RESET}") 
+        # print(f"{style.GREEN}messages sent: {prompts}{style.RESET}")
         # response = openai.ChatCompletion.create(
         #     model="gpt-3.5-turbo-16k",
         #     messages=prompts
         # )
-        
+
         # mock response
-        print(f"{style.GREEN}Mock response...{style.RESET}") 
+        print(f"{style.GREEN}Mock response...{style.RESET}")
         response = {
             "choices": [
                 {
-                "finish_reason": "stop",
-                "index": 0,
-                "message": {
-                    "content": "Hello! How can I help you today?",
-                    "role": "assistant"
-                }
+                    "finish_reason": "stop",
+                    "index": 0,
+                    "message": {
+                        "content": "Hello! How can I help you today?",
+                        "role": "assistant"
+                    }
                 }
             ],
             "created": 1688771423,
@@ -76,8 +82,9 @@ def dndbot_post(request):
         }
 
         # extract replies from the response
-        print(f"{style.BLUE}response received: {response}{style.RESET}") 
-        replies = [message["message"]["content"] for message in response["choices"] if message["message"]["role"] == "assistant"]
+        print(f"{style.BLUE}response received: {response}{style.RESET}")
+        replies = [message["message"]["content"]
+                   for message in response["choices"] if message["message"]["role"] == "assistant"]
 
         # append replies to the conversation
         for reply in replies:
@@ -87,7 +94,8 @@ def dndbot_post(request):
         request.session["conversation"] = conversation
         return redirect('dndbot_get')
 
+
 def dndbot_clear(request):
-        print(f"{style.RED}clearing session...{style.RESET}")
-        request.session.clear()
-        return redirect('index')
+    print(f"{style.RED}clearing session...{style.RESET}")
+    request.session.clear()
+    return redirect('index')

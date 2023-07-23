@@ -1,168 +1,137 @@
-{% extends 'base.html' %} {% block navlink1 %}
-<a href="#">Characters</a>
-{% endblock %} {% block navlink2 %}
-<a href="#" class="active">Chat</a>
-{% endblock %} {% block navlink3 %}
-<a href="{% url 'dndbot_clear' %}">Start over</a>
-{% endblock %} {% block content %}
-<div id="conversation">
-  {% for message in conversation %} {% if message.role == 'user' %}
-  <div class="self messages">
-    <div class="user message">
-      <p class="msg-content">
-        {{ message.content }}
-        <i class="fa-solid fa-user user-role"></i>
-      </p>
+{% extends 'base.html' %}
+{% load static %}
+{% block pagestylesheet %}
+    <link rel="stylesheet" href="{% static 'css/chat.css' %}" />
+{% endblock %}
+{% block navlink1 %}
+    <a href="#">
+        <button type="button">Characters</button>
+    </a>
+{% endblock %}
+{% block navlink2 %}
+    <a href="{% url 'dndbot_get' %}" class="active">
+        <button type="button">Chat</button>
+    </a>
+{% endblock %}
+{% block navlink3 %}
+    <a href="{% url 'dndbot_clear' %}">
+        <button type="button">Start over</button>
+    </a>
+{% endblock %}
+{% block content %}
+    <div id="conversation">
+        {% for message in conversation %}
+            {% if message.role == 'user' %}
+                <div class="self messages">
+                    <div class="user message">
+                        <p class="msg-content">
+                            <span class="msg-content-text">{{ message.content }}</span>
+                            <i class="fa-solid fa-user user-role"></i>
+                        </p>
+                    </div>
+                </div>
+            {% elif message.role == 'assistant' %}
+                <div class="bot messages">
+                    <div class="dndbot message">
+                        <p class="msg-content">
+                            <i class="fa-solid fa-hat-wizard bot-role"></i>
+                            <span class="msg-content-text">{{ message.content }}</span>
+                        </p>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
     </div>
-  </div>
-  {% elif message.role == 'assistant' %}
-  <div class="bot messages">
-    <div class="dndbot message">
-      <p class="msg-content">
-        <i class="fa-solid fa-hat-wizard bot-role"></i>
-        {{ message.content }}
-      </p>
+    <div class="container">
+        <div class="row">
+            <div class="double-column">
+                <textarea rows="3"
+                          class="centered-textarea"
+                          id="user-input"
+                          type="text"
+                          name="user_input"
+                          placeholder="Your message"></textarea>
+            </div>
+            <div class="column">
+                <button id="chat-submit" type="button" disabled>Send</button>
+            </div>
+        </div>
     </div>
-  </div>
-  {% endif %} {% endfor %}
-</div>
-<form id="chat-form" method="POST" action="{% url 'dndbot_post' %}">
-  {% csrf_token %}
-  <div class="container">
-    <div class="row">
-      <div class="double-column">
-        <textarea
-          rows="3"
-          class="centered-textarea"
-          id="user-input"
-          type="text"
-          name="user_input"
-          placeholder="Your message"
-        ></textarea>
+    <div class="self-template self messages" hidden="hidden">
+      <div class="user message">
+          <p class="msg-content">
+              <span class="msg-content-text"></span>
+              <i class="fa-solid fa-user user-role"></i>
+          </p>
       </div>
-      <div class="column">
-        <input type="submit" value="Send" />
-      </div>
     </div>
-  </div>
-</form>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const chatForm = document.getElementById("chat-form");
-    const userInput = document.getElementById("user-input");
-    const conversation = document.getElementById("conversation");
+    <div class="bot-template bot messages" hidden="hidden">
+        <div class="dndbot message">
+            <p class="msg-content">
+                <i class="fa-solid fa-hat-wizard bot-role"></i>
+                <span class="msg-content-text"></span>
+            </p>
+        </div>
+    </div>
 
-    // Scroll conversation to the bottom
-    conversation.scrollTop = conversation.scrollHeight;
+    <script>
+      const conversation = document.getElementById("conversation");
+      const userInput = document.getElementById("user-input");
+      const sendButton = document.getElementById("chat-submit");
+      const chatSocket = new WebSocket(
+        "ws://" + window.location.host + "/ws/chat/dndbot/"
+      );
 
-    // Submit the form when the user presses Enter key
-    userInput.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        chatForm.submit();
-      }
-    });
+      chatSocket.onmessage = function (e) {
+        const data = JSON.parse(e.data);
+        console.log("echoing back:", data);
 
-    // Focus on the user input field
-    userInput.focus();
-  });
+        let userMsg = $('.self-template').clone();
+        let userMsgText = userMsg.find('.msg-content-text');
+        userMsgText.html(data.message);
+        userMsg.removeClass('.self-template');
+        userMsg.removeAttr('hidden');
 
-  $(document).ready(function () {
-    $("#chat-form").on("submit", (e) => {
-      e.preventDefault();
-      $.ajax({
-        type: "POST",
-        url: "{% url 'dndbot_post' %}",
-        data: $("#chat-form").serialize(),
-        success: function (data) {
-          //$("#result").text(data["result"]);
-          console.log(data);
-          $("body").html(data);
-        },
+        conversation.append(userMsg[0]);
+      };
+
+      chatSocket.onclose = function (e) {
+        console.error("Chat socket closed unexpectedly");
+      };
+
+      document.addEventListener("DOMContentLoaded", () => {
+        // Scroll conversation to the bottom
+        conversation.scrollTop = conversation.scrollHeight;
+
+        // Submit the form when the user presses Enter key
+        userInput.addEventListener("keypress", (e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            sendButton.click();
+          }
+        });
+
+        userInput.addEventListener("input", (e) => {
+          const textInput = $.trim(e.target.value);
+          if(!textInput.length) {
+            sendButton.setAttribute('disabled', true);
+          } else {
+            sendButton.removeAttribute('disabled');
+          }
+        })
+
+        // Focus on the user input field
+        userInput.focus();
       });
-    });
-  });
-</script>
-<style>
-  #conversation {
-    height: 70vmin;
-    margin-bottom: 10px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
-    width: 100vw;
-    align-items: center;
-  }
-  .container {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  .container textarea {
-    flex: auto;
-    font-size: 16px;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    padding: 10px;
-    resize: none;
-  }
-  .container input[type="submit"] {
-    background: #264c5e;
-    color: #fff;
-    border: 0px;
-    padding: 8px 16px;
-    font-size: 14px;
-    cursor: pointer;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    height: 100%;
-  }
-  .message {
-    border-radius: 20px;
-    padding: 8px 15px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    display: inline-block;
-  }
-  .user {
-    justify-content: flex-end;
-    display: flex;
-    flex-direction: row;
-    background: #264c5e;
-  }
-  .dndbot {
-    justify-content: flex-start;
-    display: flex;
-    flex-direction: row;
-    background: #eee;
-  }
-  .bot {
-    align-self: start;
-    color: #374151;
-  }
-  .self {
-    align-self: end;
-    color: #fff;
-  }
-  .messages {
-    padding: 10px 3rem;
-    max-width: 80vw;
-  }
-  .user-role {
-    padding-left: 15px;
-    color: #fff;
-    font-size: 20px;
-  }
-  .bot-role {
-    padding-right: 15px;
-    color: #264c5e;
-    font-size: 20px;
-  }
-  .msg-content {
-    display: flex;
-    justify-content: space-around;
-    flex-direction: row;
-  }
-</style>
+
+      sendButton.onclick = function (e) {
+        const message = userInput.value;
+        chatSocket.send(
+          JSON.stringify({
+            message: message,
+          })
+        );
+        userInput.value = "";
+      };
+    </script>
 {% endblock %}
