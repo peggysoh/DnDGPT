@@ -1,0 +1,105 @@
+#conversation {
+  height: 70vmin;
+  margin-bottom: 10px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.container textarea {
+  flex: auto;
+  font-size: 16px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  padding: 10px;
+  resize: none;
+}
+
+.container button {
+  background: #264c5e;
+  color: #fff;
+  border: 0px;
+  padding: 8px 16px;
+  font-size: 14px;
+  letter-spacing: 3px;
+  cursor: pointer;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  height: 100%;
+}
+
+.container button:disabled {
+  color: #fff;
+  background: #bbbbbb;
+  cursor: not-allowed;
+}
+
+.container button:hover:enabled {
+  color: #fff;
+  background: #1d3b49 !important;
+  cursor: pointer;
+}
+
+.message {
+  border-radius: 20px;
+  padding: 8px 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: inline-block;
+}
+
+.user {
+  justify-content: flex-end;
+  display: flex;
+  flex-direction: row;
+  background: #264c5e;
+}
+
+.dndbot {
+  justify-content: flex-start;
+  display: flex;
+  flex-direction: row;
+  background: #eee;
+}
+
+.bot {
+  align-self: start;
+  color: #374151;
+}
+
+.self {
+  align-self: end;
+  color: #fff;
+}
+
+.messages {
+  padding: 10px 3rem;
+  max-width: 80vw;
+}
+
+.user-role {
+  padding-left: 15px;
+  color: #fff;
+  font-size: 20px;
+}
+
+.bot-role {
+  padding-right: 15px;
+  color: #264c5e;
+  font-size: 20px;
+}
+
+.msg-content {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+}

@@ -1,125 +1,48 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-  <head>
-    <title>{% block title %}DnDGPT{% endblock %}</title>
-  </head>
-  <body>
-    <nav>
-      <div class="heading">
-        <h4><i class="fa-solid fa-hat-wizard header-icon"></i>DnDGPT</h4>
-      </div>
-      <ul class="nav-links">
-        <li>{% block navlink1 %}{% endblock %}</li>
-        <li>{% block navlink2 %}{% endblock %}</li>
-        <li>{% block navlink3 %}{% endblock %}</li>
-      </ul>
-    </nav>
-    <div id="content" class="content">{% block content %} {% endblock %}</div>
-  </body>
-  <link
-    rel="shortcut icon"
-    type="image/svg+xml"
-    href="{% static 'images/favicon.svg' %}"
-  />
-  <link
-    href="{% static 'fontawesomefree/css/fontawesome.css' %}"
-    rel="stylesheet"
-    type="text/css"
-  />
-  <link
-    href="{% static 'fontawesomefree/css/solid.css' %}"
-    rel="stylesheet"
-    type="text/css"
-  />
+    <head>
+        <meta charset="utf-8" />
+        <meta name="keywords" content="dndbot" />
+        <meta name="description" content="dndbot" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon"
+              type="image/svg+xml"
+              href="{% static 'images/favicon.svg' %}" />
+        <link href="{% static 'fontawesomefree/css/fontawesome.css' %}"
+              rel="stylesheet"
+              type="text/css" />
+        <link href="{% static 'fontawesomefree/css/solid.css' %}"
+              rel="stylesheet"
+              type="text/css" />
+        <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+        {% block pagestylesheet %}{% endblock %}
+        <title>
+            {% block title %}DnDGPT{% endblock %}
+        </title>
+    </head>
+    <body>
+        <nav>
+            <header class="heading">
+                <h4>
+                    <i class="fa-solid fa-hat-wizard header-icon"></i>DnDGPT
+                </h4>
+            </header>
+            <ul class="nav-links">
+                <li>
+                    {% block navlink1 %}{% endblock %}
+                </li>
+                <li>
+                    {% block navlink2 %}{% endblock %}
+                </li>
+                <li>
+                    {% block navlink3 %}{% endblock %}
+                </li>
+            </ul>
+        </nav>
+        <div id="content" class="content">
+            {% block content %}{% endblock %}
+        </div>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    </body>
 </html>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-<style>
-  #content {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-  div {
-    font-family: Söhne, ui-sans-serif, system-ui, -apple-system, Segoe UI,
-      Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, Helvetica Neue, Arial,
-      Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-  }
-  .header-icon {
-    padding: 0px 15px;
-    color: #fff;
-    font-size: 30px;
-  }
-  .break {
-    flex-basis: 100%;
-    height: 0;
-  }
-  .row {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-  }
-  .column {
-    display: flex;
-    flex-direction: column;
-    flex-basis: 100%;
-    flex: 1;
-  }
-  .double-column {
-    display: flex;
-    flex-direction: column;
-    flex-basis: 100%;
-    flex: 12;
-  }
-  * {
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-  }
-  .body-text {
-    display: flex;
-    font-family: "Montserrat", sans-serif;
-    align-items: center;
-    justify-content: center;
-    margin-top: 250px;
-  }
-  nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    min-height: 10vh;
-    background-color: #264c5e;
-    font-family: "Montserrat", sans-serif;
-  }
-  .heading {
-    color: #fff;
-    text-transform: uppercase;
-    letter-spacing: 5px;
-    font-size: 20px;
-    margin-left: 2.5rem;
-  }
-  .nav-links {
-    display: flex;
-    justify-content: space-around;
-    width: 30%;
-  }
-  .nav-links li {
-    list-style: none;
-  }
-  .nav-links a {
-    color: #ffffffc4;
-    text-decoration: none;
-    letter-spacing: 3px;
-    font-weight: bold;
-    font-size: 14px;
-    padding: 10px 5px;
-  }
-  .nav-links a:hover:not(.active) {
-    color: #fff;
-  }
-  .nav-links li a.active {
-    border-bottom: 1.5px solid #fff;
-    color: #fff;
-  }
-</style>
