@@ -1,4 +1,6 @@
 # DnDGPT
+Play DnD with DnDGPT as your DM!
+![Screenshot 2023-07-23 at 17 56 37](https://github.com/peggysoh/DnDGPT/assets/11656725/bac4b8a7-5b69-4314-9a08-27f330db8078)
 
 # Setup
 
