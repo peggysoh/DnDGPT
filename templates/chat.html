@@ -4,12 +4,12 @@
     <link rel="stylesheet" href="{% static 'css/chat.css' %}" />
 {% endblock %}
 {% block navlink1 %}
-    <a href="#">
+    <a href="{% url 'dndbot_characters' %}">
         <button type="button">Characters</button>
     </a>
 {% endblock %}
 {% block navlink2 %}
-    <a href="{% url 'dndbot_get' %}" class="active">
+    <a href="{% url 'dndbot_chat' %}" class="active">
         <button type="button">Chat</button>
     </a>
 {% endblock %}

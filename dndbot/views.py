@@ -17,7 +17,7 @@ def index(request):
     return render(request, "index.html")
 
 
-def dndbot_get(request):
+def dndbot_chat(request):
     conversation = request.session.get("conversation", [])
     print(f"{style.RED}conversation: {conversation}{style.RESET}")
 
@@ -28,3 +28,8 @@ def dndbot_clear(request):
     print(f"{style.RED}clearing session...{style.RESET}")
     request.session.clear()
     return redirect('index')
+
+
+def dndbot_characters(request):
+    request.session.clear()
+    return render(request, "characters.html")

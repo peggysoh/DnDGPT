@@ -22,5 +22,6 @@ from django.contrib.staticfiles.storage import staticfiles_storage
 urlpatterns = [
     path('', include("dndbot.urls")),
     path('admin/', admin.site.urls),
-    path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('images/favicon.svg'), permanent=True)),
+    path('favicon.ico', RedirectView.as_view(
+        url=staticfiles_storage.url('images/favicon.svg'), permanent=True)),
 ]

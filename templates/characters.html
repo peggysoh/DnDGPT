@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block pagestylesheet %}
+    <link rel="stylesheet" href="{% static 'css/characters.css' %}" />
+{% endblock %}
+{% block navlink1 %}
+    <a href="{% url 'dndbot_characters' %}" class="active">
+        <button type="button">Characters</button>
+    </a>
+{% endblock %}
+{% block navlink2 %}
+    <a href="{% url 'dndbot_chat' %}">
+        <button type="button">Chat</button>
+    </a>
+{% endblock %}
+{% block navlink3 %}
+    <a href="{% url 'dndbot_clear' %}">
+        <button type="button">Start over</button>
+    </a>
+{% endblock %}
+{% block content %}
+hello world
+{% endblock %}
