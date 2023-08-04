@@ -21,5 +21,6 @@ urlpatterns = [
     path('', views.index, name="index"),
     path('chat/', views.dndbot_chat, name="dndbot_chat"),
     path('clear/', views.dndbot_clear, name="dndbot_clear"),
-    path('characters/', views.dndbot_characters, name="dndbot_characters")
+    path('characters/', views.dndbot_characters, name="dndbot_characters"),
+    path('create/', views.dndbot_create, name="dndbot_create")
 ]

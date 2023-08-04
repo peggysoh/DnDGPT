@@ -31,5 +31,10 @@ def dndbot_clear(request):
 
 
 def dndbot_characters(request):
-    request.session.clear()
     return render(request, "characters.html")
+
+
+def dndbot_create(request):
+    campaign = request.session.get("campaign", {"numberOfPlayers": 1})
+    print(f"{style.RED}campaign: {campaign}{style.RESET}")
+    return render(request, "create.html", {"campaign": campaign})
