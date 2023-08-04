@@ -18,6 +18,10 @@ def index(request):
 
 
 def dndbot_chat(request):
+    campaign = request.session.get("campaign")
+    if campaign is None or campaign["sessionStarted"] is False:
+        return redirect('index')
+    
     conversation = request.session.get("conversation", [])
     print(f"{style.RED}dndbot_chat conversation: {conversation}{style.RESET}")
 
@@ -31,6 +35,10 @@ def dndbot_clear(request):
 
 
 def dndbot_characters(request):
+    campaign = request.session.get("campaign")
+    if campaign is None or campaign["sessionStarted"] is False:
+        return redirect('index')
+    
     return render(request, "characters.html")
 
 
@@ -49,13 +57,14 @@ def dndbot_create(request):
         print(f"{style.RED}dndbot_create existing campaign: {campaign}{style.RESET}")
     return render(request, "create.html", {"campaign": campaign})
 
+
 def dndbot_generate(request):
     campaign = request.session.get("campaign")
     if campaign is None:
         return redirect('index')
 
     if request.method != "POST" and campaign["sessionStarted"] is False:
-        return redirect('dndbot_create')
+        return redirect('index')
     
     if request.method == "POST":
         campaign["numberOfPlayers"] = request.POST['numberOfPlayers']
