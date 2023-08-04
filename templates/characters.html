@@ -19,5 +19,18 @@
     </a>
 {% endblock %}
 {% block content %}
-hello world
+<div class="container">
+  <div class="grid">
+    Number of players?
+    <div class="number-input">
+      <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus">
+        <i class="fa-solid fa-minus"></i>
+      </button>
+      <input class="quantity" min="1" max="6" name="quantity" value="1" type="number">
+      <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus">
+        <i class="fa-solid fa-plus"></i>
+      </button>
+    </div>
+  </div>
+</div>
 {% endblock %}
