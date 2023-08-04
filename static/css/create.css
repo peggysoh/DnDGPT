@@ -92,31 +92,10 @@ html {
   margin-left: 2.5rem;
 }
 
-#start-campaign {
-    background: #264c5e;
-    border: 0px;
-    padding: 25px 75px;
-    border-radius: 10px;
-    color: #ffffffc4;
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 5px;
-    font-weight: bold;
-}
-
-#start-campaign:hover {
-    background: #1d3b49;
-    cursor: pointer;
-    color: #fff;
-}
-
 .subcontainer {
     align-self: center;
 }
 
-.pad-top-50 {
-  padding-top: 50px;
-}
 
 .margin-top-m30{
   margin-top: -30px

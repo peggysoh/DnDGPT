@@ -112,10 +112,40 @@ nav {
   text-align: center;
 }
 
-.pad-top {
+.pad-top-25 {
   margin-top: 25px;
+}
+
+.pad-top-50 {
+  padding-top: 50px;
 }
 
 .label {
   font-weight: bold;
+}
+
+.main-button {
+  background: #264c5e;
+  border: 0px;
+  padding: 25px 75px;
+  border-radius: 10px;
+  color: #ffffffc4;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-weight: bold;
+}
+
+.main-button:hover {
+  background: #1d3b49;
+  cursor: pointer;
+  color: #fff;
+}
+
+.max-h {
+  height: 100%;
+}
+
+.max-w {
+  width: 100%;
 }
