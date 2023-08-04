@@ -6,7 +6,7 @@
 {% block content %}
 <body>
   <div class="container">
-    <div  class="subcontainer">
+    <div>
       <span class="create-heading">Create a campaign</span>
       <p class="subtitle">
         This campaign is powered by DnDGPT using OpenAI GPT-3.5.<br>
@@ -14,7 +14,7 @@
         Grab your dice and start your campaign!<br>
       </p>
     </div>
-    <div class="subcontainer">
+    <div>
       <span class="create-heading">How it works:</span>
       <p class="subtitle">
         1) Enter the number of players (minimum: {{campaign.minPlayers}}, maxinum {{campaign.maxPlayers}}).<br>
@@ -24,8 +24,10 @@
         5) Use the chat to tell DnDGPT (your DM) your moves and play along.
       </p>
     </div>
-    <div class="subcontainer">
-      <span class="subtitle">Number of players?</span>
+    <div class="subcontainer pad-top-50">
+      <span class="label">Number of players</span>
+    </div>
+    <div class="subcontainer margin-top-m30">
       <div class="number-input">
         <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus">
           <i class="fa-solid fa-minus"></i>
@@ -35,6 +37,11 @@
           <i class="fa-solid fa-plus"></i>
         </button>
       </div>
+    </div>
+    <div class="subcontainer">
+      <a href="{% url 'dndbot_chat' %}">
+        <button type="button" id="start-campaign">Start campaign!</button>
+      </a>
     </div>
   </div>
 </body>
