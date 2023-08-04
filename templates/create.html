@@ -30,7 +30,7 @@
         <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus">
           <i class="fa-solid fa-minus"></i>
         </button>
-        <input class="quantity" min="{{ campaign.minPlayers }}" max="{{ campaign.maxPlayers }}" name="quantity" value="{{ campaign.numberOfPlayers }}" type="number">
+        <input class="quantity" min="{{ campaign.minPlayers }}" max="{{ campaign.maxPlayers }}" name="quantity" value="{{ campaign.numberOfPlayers }}" type="number" readonly>
         <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus">
           <i class="fa-solid fa-plus"></i>
         </button>
