@@ -6,12 +6,18 @@
 }
 
 .container {
+    margin-top: 40px;
     display: flex;
     flex-wrap: wrap;
     height: 75vh;
     justify-content: center;
     align-items: center;
     align-content: center;
+    background-color: #dce7eceb;
+    flex-direction: column;
+    width: 60%;
+    align-self: end;
+    border-radius: 25px 0px 0px 25px;
 }
 
 html {
@@ -20,8 +26,8 @@ html {
 }
 
 .subtitle {
-    color: #fff;
     letter-spacing: 3px;
     font-size: 18px;
-    font-weight: 500;
+    font-weight: bold;
+    text-transform: uppercase;
 }
