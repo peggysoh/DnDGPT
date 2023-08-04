@@ -86,7 +86,6 @@
 
       chatSocket.onmessage = function (e) {
         const data = JSON.parse(e.data);
-        console.log("echoing back:", data);
         cloneTemplate(botTemplate, data.response.content);
 
         sendButton.removeAttribute('disabled');

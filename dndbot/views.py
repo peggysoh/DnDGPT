@@ -44,7 +44,7 @@ def dndbot_characters(request):
 
 def dndbot_create(request):
     campaign = request.session.get("campaign")
-    if campaign is None:
+    if campaign is None or campaign["sessionStarted"] is False:
         campaign = {
             "numberOfPlayers": 1,
             "minPlayers": 1,
@@ -53,9 +53,10 @@ def dndbot_create(request):
         }
         request.session['campaign'] = campaign
         print(f"{style.RED}dndbot_create new campaign: {campaign}{style.RESET}")
+        return render(request, "create.html", {"campaign": campaign})
     else:
         print(f"{style.RED}dndbot_create existing campaign: {campaign}{style.RESET}")
-    return render(request, "create.html", {"campaign": campaign})
+        return redirect('dndbot_chat')
 
 
 def dndbot_generate(request):
