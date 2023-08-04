@@ -24,25 +24,43 @@
         5) Use the chat to tell DnDGPT (your DM) your moves and play along.
       </p>
     </div>
-    <div class="subcontainer pad-top-50">
-      <span class="label">Number of players</span>
-    </div>
-    <div class="subcontainer margin-top-m30">
-      <div class="number-input">
-        <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus">
-          <i class="fa-solid fa-minus"></i>
-        </button>
-        <input class="quantity" min="{{ campaign.minPlayers }}" max="{{ campaign.maxPlayers }}" name="quantity" value="{{ campaign.numberOfPlayers }}" type="number" readonly>
-        <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus">
-          <i class="fa-solid fa-plus"></i>
-        </button>
+    <form action="{% url 'dndbot_generate' %}" method="post">
+      {% csrf_token %}
+      <div class="subcontainer pad-top-25">
+        <span class="label">Number of players</span>
       </div>
-    </div>
-    <div class="subcontainer">
-      <a href="{% url 'dndbot_generate' %}">
-        <button type="button" class="main-button">Start campaign!</button>
-      </a>
-    </div>
+      <div class="subcontainer">
+        <div class="number-input">
+          <button class="minus" id="subtractPlayers">
+            <i class="fa-solid fa-minus"></i>
+          </button>
+          <input min="{{ campaign.minPlayers }}" max="{{ campaign.maxPlayers }}" name="numberOfPlayers" value="{{ campaign.numberOfPlayers }}" type="number" readonly>
+          <button class="plus" id="addPlayers">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </div>
+      </div>
+      <div class="subcontainer margin-top-30">
+        <a href="{% url 'dndbot_generate' %}">
+          <button type="submit" class="main-button">Start campaign!</button>
+        </a>
+      </div>
+    </form>
   </div>
 </body>
+<script>
+  const subtractPlayersButton = document.getElementById("subtractPlayers");
+  const addPlayersButton = document.getElementById("addPlayers"); 
+  const playersInput = document.querySelector('input[type=number]'); 
+
+  subtractPlayersButton.onclick = function (e) {
+    e.preventDefault();
+    playersInput.stepDown();
+  };
+  
+  addPlayersButton.onclick = function (e) {
+    e.preventDefault();
+    playersInput.stepUp();
+  };
+</script>
 {% endblock %}

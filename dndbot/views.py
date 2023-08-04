@@ -51,7 +51,16 @@ def dndbot_create(request):
 
 def dndbot_generate(request):
     campaign = request.session.get("campaign")
-    campaign["sessionStarted"] = True
-    request.session['campaign'] = campaign
+    if campaign is None:
+        return redirect('index')
+
+    if request.method != "POST" and campaign["sessionStarted"] is False:
+        return redirect('dndbot_create')
+    
+    if request.method == "POST":
+        campaign["numberOfPlayers"] = request.POST['numberOfPlayers']
+        campaign["sessionStarted"] = True
+        request.session['campaign'] = campaign
+
     print(f"{style.RED}dndbot_generate campaign: {campaign}{style.RESET}")
     return redirect('dndbot_chat')
