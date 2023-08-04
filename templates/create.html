@@ -4,18 +4,38 @@
     <link rel="stylesheet" href="{% static 'css/create.css' %}" />
 {% endblock %}
 {% block content %}
-<div class="container">
-  <div class="grid">
-    Number of players?
-    <div class="number-input">
-      <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus">
-        <i class="fa-solid fa-minus"></i>
-      </button>
-      <input class="quantity" min="1" max="6" name="quantity" value="{{ campaign.numberOfPlayers }}" type="number">
-      <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus">
-        <i class="fa-solid fa-plus"></i>
-      </button>
+<body>
+  <div class="container">
+    <div  class="subcontainer">
+      <span class="create-heading">Create a campaign</span>
+      <p class="subtitle">
+        This campaign is powered by DnDGPT using OpenAI GPT-3.5.<br>
+        DnDGPT will generate a one shot campaign that will last 2-3 hours long and will act as your personal DM.<br>
+        Grab your dice and start your campaign!<br>
+      </p>
+    </div>
+    <div class="subcontainer">
+      <span class="create-heading">How it works:</span>
+      <p class="subtitle">
+        1) Enter the number of players (minimum: {{campaign.minPlayers}}, maxinum {{campaign.maxPlayers}}).<br>
+        2) Submit and wait for DnDGPT to generate your characters for you. <br>
+        3) Print your character sheet. <br>
+        4) Grab your dice and start the campaign! <br>
+        5) Use the chat to tell DnDGPT (your DM) your moves and play along.
+      </p>
+    </div>
+    <div class="subcontainer">
+      <span class="subtitle">Number of players?</span>
+      <div class="number-input">
+        <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus">
+          <i class="fa-solid fa-minus"></i>
+        </button>
+        <input class="quantity" min="{{ campaign.minPlayers }}" max="{{ campaign.maxPlayers }}" name="quantity" value="{{ campaign.numberOfPlayers }}" type="number">
+        <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+      </div>
     </div>
   </div>
-</div>
+</body>
 {% endblock %}

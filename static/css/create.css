@@ -39,7 +39,6 @@ input[type=number]::-webkit-outer-spin-button {
   position: absolute;
 }
 
-
 .number-input input[type=number] {
   max-width: 5rem;
   min-width: 3rem;
@@ -49,4 +48,44 @@ input[type=number]::-webkit-outer-spin-button {
   font-size: 1rem;
   height: 2.5rem;
   text-align: center;
+}
+
+.content {
+  background: url("/static/images/d12.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 20% center;
+}
+
+.container {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  height: 75vh;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: center;
+  background-color: #dce7eceb;
+  flex-direction: column;
+  width: 60%;
+  align-self: end;
+  border-radius: 25px 0px 0px 25px;
+  row-gap: 40px;
+}
+
+html {
+  background-color: #7ab6d0;
+  min-height: 100%;
+}
+
+.create-heading {
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: 20px;
+  margin-left: 2.5rem;
+  font-weight: bold;
+}
+
+.subtitle {
+  margin-left: 2.5rem;
 }

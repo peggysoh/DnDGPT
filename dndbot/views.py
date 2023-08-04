@@ -35,6 +35,10 @@ def dndbot_characters(request):
 
 
 def dndbot_create(request):
-    campaign = request.session.get("campaign", {"numberOfPlayers": 1})
+    campaign = request.session.get("campaign", {
+        "numberOfPlayers": 1,
+        "minPlayers": 1,
+        "maxPlayers": 2
+    })
     print(f"{style.RED}campaign: {campaign}{style.RESET}")
     return render(request, "create.html", {"campaign": campaign})
