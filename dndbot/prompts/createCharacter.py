@@ -1,6 +1,6 @@
 prompt = '''Create a level 3 5e DnD character based off the DnD character sheet. 
 Use any available 5e DnD resources available to you. 
-Be diverse in your character creation. Have an even preference to all race and class options. 
+Be diverse in your character creation. Have an even preference to all gender, race, and class options. 
 Pick from all available races and classes.
 Use language and tone of voice that fits the character.
 For backstory, keep it short but concised, it must be in 2-3 sentences. 
