@@ -24,7 +24,7 @@
         5) Use the chat to tell DnDGPT (your DM) your moves and play along.
       </p>
     </div>
-    <form action="{% url 'dndbot_generate' %}" method="post">
+    <form id="characterForm" action="{% url 'dndbot_generate' %}" method="post">
       {% csrf_token %}
       <div class="subcontainer pad-top-25">
         <span class="label">Number of players</span>
@@ -42,8 +42,9 @@
       </div>
       <div class="subcontainer margin-top-30">
         <a href="{% url 'dndbot_generate' %}">
-          <button type="submit" class="main-button">Start campaign!</button>
+          <button type="submit" class="main-button"><span class="main-button-text">Start campaign!</span></button>
         </a>
+        <button id="loadingButton" class="main-button" disabled hidden><i class="fa fa-gear fa-spin loader"></i><span class="main-button-text"> Generating</span></button>
       </div>
     </form>
   </div>
@@ -52,6 +53,9 @@
   const subtractPlayersButton = document.getElementById("subtractPlayers");
   const addPlayersButton = document.getElementById("addPlayers"); 
   const playersInput = document.querySelector('input[type=number]'); 
+  const characterForm = document.getElementById("characterForm");
+  const submitButton = document.querySelector('button[type=submit]');
+  const loadingButton = document.getElementById("loadingButton");
 
   subtractPlayersButton.onclick = function (e) {
     e.preventDefault();
@@ -62,5 +66,14 @@
     e.preventDefault();
     playersInput.stepUp();
   };
+
+  characterForm.onsubmit = function (e) {
+    subtractPlayersButton.setAttribute('disabled', true);
+    addPlayersButton.setAttribute('disabled', true);
+    submitButton.setAttribute('disabled', true);
+    submitButton.setAttribute('hidden', true);
+    loadingButton.removeAttribute('hidden');
+  }
+
 </script>
 {% endblock %}

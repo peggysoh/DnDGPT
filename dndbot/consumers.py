@@ -1,26 +1,12 @@
+import dndbot.openaiprovider as openai_provider
 import json
 import os
-import openai
 
 from asgiref.sync import sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
-from dotenv import load_dotenv
-
-# Set OpenAI API Key
-load_dotenv()
-openai.api_key = os.environ.get("OPENAI_API_KEY")
-if openai.api_key is None:
-    raise ValueError(
-        "OpenAI API Key not set as environnment variable OPENAI_API_KEY")
+from dndbot.style import style
 
 os.system("")
-
-
-class style():
-    RED = '\033[31m'
-    GREEN = '\033[32m'
-    BLUE = '\033[34m'
-    RESET = '\033[0m'
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -53,10 +39,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         # setup and invoke GPT model
         print(f"{style.GREEN}prompts: {prompts}{style.RESET}")
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo-16k",
-            messages=prompts
-        )
+        response = openai_provider.chatComplete(prompts)
 
         # mock response
         # print(f"{style.GREEN}Mock response...{style.RESET}")

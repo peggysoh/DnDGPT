@@ -131,10 +131,14 @@ nav {
   padding: 25px 75px;
   border-radius: 10px;
   color: #ffffffc4;
-  font-size: 14px;
+  font-size: 20px;
   text-transform: uppercase;
-  letter-spacing: 5px;
   font-weight: bold;
+}
+
+.main-button-text {
+  letter-spacing: 5px;
+  font-size: 14px;
 }
 
 .main-button:hover {

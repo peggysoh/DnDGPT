@@ -1,16 +1,12 @@
 import os
+import dndbot.openaiprovider as openai_provider
 
 from django.shortcuts import render
 from django.shortcuts import redirect
+from dndbot.prompts.createCharacter import prompt as createCharacterPrompt 
+from dndbot.style import style
 
 os.system("")
-
-
-class style():
-    RED = '\033[31m'
-    GREEN = '\033[32m'
-    BLUE = '\033[34m'
-    RESET = '\033[0m'
 
 
 def index(request):
@@ -39,7 +35,9 @@ def dndbot_characters(request):
     if campaign is None or campaign["sessionStarted"] is False:
         return redirect('index')
     
-    return render(request, "characters.html")
+    characters = campaign["characters"]
+    print(f"{style.GREEN}dndbot_characters: {characters}{style.RESET}")
+    return render(request, "characters.html", {"characters": characters})
 
 
 def dndbot_create(request):
@@ -68,7 +66,21 @@ def dndbot_generate(request):
         return redirect('index')
     
     if request.method == "POST":
-        campaign["numberOfPlayers"] = request.POST['numberOfPlayers']
+        numberOfPlayers = int(request.POST['numberOfPlayers'])
+        characters = []
+        for i in range(numberOfPlayers):
+            prompts = []
+            prompts.extend([{"role": "user", "content": createCharacterPrompt}])
+            response = openai_provider.chatComplete(prompts)
+            
+            replies = [message["message"]["content"]
+                    for message in response["choices"] if message["message"]["role"] == "assistant"]
+
+            for reply in replies:
+                characters.append(reply)
+
+        campaign["characters"] = characters
+        campaign["numberOfPlayers"] = numberOfPlayers
         campaign["sessionStarted"] = True
         request.session['campaign'] = campaign
 
