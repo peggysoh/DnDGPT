@@ -20,6 +20,8 @@
 {% endblock %}
 {% block content %}
 <div class="container">
-    wip: display player's characters
+    {% for character in characters %}
+        Character: {{ character }} <br><br>
+    {% endfor %}
 </div>
 {% endblock %}

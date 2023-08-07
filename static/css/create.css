@@ -96,7 +96,6 @@ html {
     align-self: center;
 }
 
-
 .margin-top-30{
   margin-top: 30px;
 }
@@ -107,4 +106,14 @@ form {
   flex-direction: column;
   justify-content: center;
   row-gap: 10px;
+}
+
+.loader {
+  vertical-align: middle;
+}
+
+#loadingButton {
+  cursor: wait;
+  color: #fff;
+  background: #999;
 }
