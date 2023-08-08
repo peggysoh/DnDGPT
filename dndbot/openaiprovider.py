@@ -25,7 +25,7 @@ def imageCreate(filename, prompt):
     response = openai.Image.create(
         prompt = prompt,
         n = 1,
-        size = "512x512",
+        size = "256x256",
         response_format = "b64_json"
     )
     imageData = response['data'][0]['b64_json']

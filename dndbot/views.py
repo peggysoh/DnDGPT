@@ -131,9 +131,11 @@ def generate_character(characters, prompts):
 
 def generate_character_image(character):
     name = "%s_%s" % (character['firstName'], character['lastName'])
-    charImgPrompt = "%s %s" % (createCharacterImgPrompt, character['physicalDescription'] )
+    physicalDescription = "Description:%s" % (character['physicalDescription'])
+    backstory = "Backstory:%s" % (character['backstory'])
+    charImgPrompt = "%s %s %s" % (createCharacterImgPrompt, physicalDescription, backstory)
     try:
-        openai_provider.imageCreate(f'characters/{name}.jpg', charImgPrompt)
+        openai_provider.imageCreate(f'characters/{name}.jpg', charImgPrompt[:400])
         return True
     except Exception as error:
         print(f"{style.RED}dndbot_generate image error {error}...{style.RESET}")

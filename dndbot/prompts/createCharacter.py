@@ -3,8 +3,8 @@ Use any available 5e DnD resources available to you.
 Be diverse in your character creation. Have an even preference to all gender, race, and class. 
 Pick from all available races and classes. Do not have a preference for half-elves.
 Use language and tone of voice that fits the character.
-For backstory, keep it short but concise, it must be in 2-3 sentences. 
-For physical description, be descriptive but it must be in 2-3 sentences. 
+For backstory, keep it short and concise, it must be in 1-2 sentences. 
+For physical description, be descriptive but it must be in 1-2 sentences. 
 For personalityTraits, ideals, bonds, and flaws, it must be in 1-2 sentences.
 For any other descriptions, it must be in 1-2 sentences.
 
