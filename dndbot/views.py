@@ -78,24 +78,29 @@ def dndbot_generate(request):
         for i in range(numberOfPlayers):
             prompts = []
             prompts.extend([{"role": "user", "content": createCharacterPrompt}])
-            print(f"{style.RED}dndbot_generate creating character...{style.RESET}")
-            response = openai_provider.chatComplete(prompts)
-            
-            replies = [message["message"]["content"]
-                    for message in response["choices"] if message["message"]["role"] == "assistant"]
 
-            for reply in replies:
-                characters.append(reply)
-                try:
-                    character = json.loads(reply)
-                except json.decoder.JSONDecodeError:
-                    print("Invalid JSON")
-                    
-                if 'physicalDescription' in character and 'firstName' in character and 'lastName' in character:
-                    name = "%s_%s" % (character['firstName'], character['lastName'])
-                    print(f"{style.RED}dndbot_generate creating character image...{style.RESET}")
-                    charImgPrompt = "%s %s" % (createCharacterImgPrompt, character['physicalDescription'] )
-                    openai_provider.imageCreate(f'characters/{name}.jpg', charImgPrompt)
+            characterCreated = False
+            characterTries = 1
+            while not characterCreated:
+                print(f"{style.RED}dndbot_generate creating character, try {characterTries}...{style.RESET}")
+                response = generate_character(characters, prompts)
+                characterCreated = response['created']
+                if characterCreated is True:
+                    character = response['character']
+                # max of 3 tries
+                if characterTries == 3:
+                    break
+                characterTries += 1
+            
+            imageCreated = False
+            imageTries = 1
+            while not imageCreated: 
+                print(f"{style.RED}dndbot_generate creating character image, try {imageTries}...{style.RESET}")
+                imageCreated = generate_character_image(character)
+                # max of 3 tries
+                if imageTries == 3:
+                    break
+                imageTries += 1
 
         campaign["characters"] = characters
         campaign["numberOfPlayers"] = numberOfPlayers
@@ -104,3 +109,34 @@ def dndbot_generate(request):
         print(f"{style.RED}dndbot_generate character creation done...{style.RESET}")
 
     return redirect('dndbot_chat')
+
+def generate_character(characters, prompts):
+    response = openai_provider.chatComplete(prompts)
+    replies = [message["message"]["content"]
+            for message in response["choices"] if message["message"]["role"] == "assistant"]
+
+    for reply in replies:
+        if (is_json(reply)): 
+            characters.append(reply)
+            character = json.loads(reply)
+            return { 
+                "created": True, 
+                "character": character
+            }
+    
+    return { "created": False }
+
+def generate_character_image(character):
+    if 'physicalDescription' in character and 'firstName' in character and 'lastName' in character:
+        name = "%s_%s" % (character['firstName'], character['lastName'])
+        charImgPrompt = "%s %s" % (createCharacterImgPrompt, character['physicalDescription'] )
+        openai_provider.imageCreate(f'characters/{name}.jpg', charImgPrompt)
+        return True
+    return False
+
+def is_json(jsonString):
+    try:
+        json.loads(jsonString)
+    except ValueError as e:
+        return False
+    return True
