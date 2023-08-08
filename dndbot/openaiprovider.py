@@ -11,7 +11,7 @@ load_dotenv()
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 if openai.api_key is None:
     raise ValueError(
-        "OpenAI API Key not set as environnment variable OPENAI_API_KEY")
+        "OpenAI API Key not set as environment variable OPENAI_API_KEY")
 
 os.system("")
 
@@ -30,4 +30,4 @@ def imageCreate(filename, prompt):
     )
     imageData = response['data'][0]['b64_json']
     img = Image.open(io.BytesIO(base64.decodebytes(bytes(imageData, "utf-8"))))
-    img.save(f'static\images\{filename}', format='JPEG', quality=100, subsampling=0)
+    img.save(f'static/images/{filename}', format='JPEG', quality=100, subsampling=0)

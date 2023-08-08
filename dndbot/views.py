@@ -4,7 +4,8 @@ import dndbot.openaiprovider as openai_provider
 
 from django.shortcuts import render
 from django.shortcuts import redirect
-from dndbot.prompts.createCharacter import prompt as createCharacterPrompt 
+from dndbot.prompts.createCharacter import prompt as createCharacterPrompt
+from dndbot.prompts.createCharacterImage import prompt as createCharacterImgPrompt 
 from dndbot.style import style
 
 os.system("")
@@ -40,8 +41,8 @@ def dndbot_characters(request):
     charactersJson = campaign["characters"]
     for characterJson in charactersJson:
         character = json.loads(characterJson)
-        name = character['name'].replace(" ", "_")
-        character["imageUrl"] = f'images\characters\{name}.jpg'
+        name = "%s_%s" % (character['firstName'], character['lastName'])
+        character["imageUrl"] = f'images/characters/{name}.jpg'
         characters.append(character)
     print(f"{style.GREEN}dndbot_characters: {characters}{style.RESET}")
     return render(request, "characters.html", {"characters": characters})
@@ -62,7 +63,6 @@ def dndbot_create(request):
     else:
         print(f"{style.RED}dndbot_create existing campaign: {campaign}{style.RESET}")
         return redirect('dndbot_chat')
-
 
 def dndbot_generate(request):
     campaign = request.session.get("campaign")
@@ -86,11 +86,16 @@ def dndbot_generate(request):
 
             for reply in replies:
                 characters.append(reply)
-                character = json.loads(reply)
-                if 'physicalDescription' in character and 'name' in character:
-                    name = character['name'].replace(" ", "_")
+                try:
+                    character = json.loads(reply)
+                except json.decoder.JSONDecodeError:
+                    print("Invalid JSON")
+                    
+                if 'physicalDescription' in character and 'firstName' in character and 'lastName' in character:
+                    name = "%s_%s" % (character['firstName'], character['lastName'])
                     print(f"{style.RED}dndbot_generate creating character image...{style.RESET}")
-                    openai_provider.imageCreate(f'characters\{name}.jpg', character['physicalDescription'])
+                    charImgPrompt = "%s %s" % (createCharacterImgPrompt, character['physicalDescription'] )
+                    openai_provider.imageCreate(f'characters/{name}.jpg', charImgPrompt)
 
         campaign["characters"] = characters
         campaign["numberOfPlayers"] = numberOfPlayers
