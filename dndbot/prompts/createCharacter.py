@@ -216,6 +216,6 @@ OUTPUT:
   "ideals": "People. I'm loyal to my friends and not any ideals.",
   "bonds": "My aunt has a farm in Phandalin. I always give her some of my ill-gotten gains.",
   "flaws": "My aunt never know of the deeds I did.",
-  "phsyicalDescription": "Long dark brown hair elf that possesses an alluring, elven grace. Her emerald eyes exude intensity and a hint of weariness, reflecting her mystical past and determined nature. Clad in a deep violet robe adorned with golden runes, she carries an enigmatic presence, a blend of ancient arcane knowledge and shadows from her criminal past."
+  "physicalDescription": "Long dark brown hair elf that possesses an alluring, elven grace. Her emerald eyes exude intensity and a hint of weariness, reflecting her mystical past and determined nature. Clad in a deep violet robe adorned with golden runes, she carries an enigmatic presence, a blend of ancient arcane knowledge and shadows from her criminal past."
 }
 '''

@@ -133,3 +133,6 @@ dmypy.json
 **/*.mp3
 **/*.wav
 **/*.json
+
+# character images
+/static/images/characters/*

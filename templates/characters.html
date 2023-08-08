@@ -22,6 +22,7 @@
 <div class="container">
     {% for character in characters %}
         Character: {{ character }} <br><br>
+        <img src="{% static character.imageUrl %}"/><br><br>
     {% endfor %}
 </div>
 {% endblock %}

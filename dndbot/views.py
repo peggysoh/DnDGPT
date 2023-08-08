@@ -1,3 +1,4 @@
+import json
 import os
 import dndbot.openaiprovider as openai_provider
 
@@ -35,7 +36,13 @@ def dndbot_characters(request):
     if campaign is None or campaign["sessionStarted"] is False:
         return redirect('index')
     
-    characters = campaign["characters"]
+    characters = []
+    charactersJson = campaign["characters"]
+    for characterJson in charactersJson:
+        character = json.loads(characterJson)
+        name = character['name'].replace(" ", "_")
+        character["imageUrl"] = f'images\characters\{name}.jpg'
+        characters.append(character)
     print(f"{style.GREEN}dndbot_characters: {characters}{style.RESET}")
     return render(request, "characters.html", {"characters": characters})
 
@@ -71,6 +78,7 @@ def dndbot_generate(request):
         for i in range(numberOfPlayers):
             prompts = []
             prompts.extend([{"role": "user", "content": createCharacterPrompt}])
+            print(f"{style.RED}dndbot_generate creating character...{style.RESET}")
             response = openai_provider.chatComplete(prompts)
             
             replies = [message["message"]["content"]
@@ -78,11 +86,16 @@ def dndbot_generate(request):
 
             for reply in replies:
                 characters.append(reply)
+                character = json.loads(reply)
+                if 'physicalDescription' in character and 'name' in character:
+                    name = character['name'].replace(" ", "_")
+                    print(f"{style.RED}dndbot_generate creating character image...{style.RESET}")
+                    openai_provider.imageCreate(f'characters\{name}.jpg', character['physicalDescription'])
 
         campaign["characters"] = characters
         campaign["numberOfPlayers"] = numberOfPlayers
         campaign["sessionStarted"] = True
         request.session['campaign'] = campaign
+        print(f"{style.RED}dndbot_generate character creation done...{style.RESET}")
 
-    print(f"{style.RED}dndbot_generate campaign: {campaign}{style.RESET}")
     return redirect('dndbot_chat')
