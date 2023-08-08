@@ -87,6 +87,7 @@ def dndbot_generate(request):
                 characterCreated = response['created']
                 if characterCreated is True:
                     character = response['character']
+                    print(f"{style.BLUE}dndbot_generate created {character}...{style.RESET}")
                 # max of 3 tries
                 if characterTries == 3:
                     break
@@ -117,22 +118,26 @@ def generate_character(characters, prompts):
 
     for reply in replies:
         if (is_json(reply)): 
-            characters.append(reply)
             character = json.loads(reply)
-            return { 
-                "created": True, 
-                "character": character
-            }
+            if 'physicalDescription' in character and 'firstName' in character and 'lastName' in character:
+                characters.append(reply)
+                return { 
+                    "created": True, 
+                    "character": character
+                }
     
+    print(f"{style.RED}dndbot_generate character created with invalid json...{style.RESET}")
     return { "created": False }
 
 def generate_character_image(character):
-    if 'physicalDescription' in character and 'firstName' in character and 'lastName' in character:
-        name = "%s_%s" % (character['firstName'], character['lastName'])
-        charImgPrompt = "%s %s" % (createCharacterImgPrompt, character['physicalDescription'] )
+    name = "%s_%s" % (character['firstName'], character['lastName'])
+    charImgPrompt = "%s %s" % (createCharacterImgPrompt, character['physicalDescription'] )
+    try:
         openai_provider.imageCreate(f'characters/{name}.jpg', charImgPrompt)
         return True
-    return False
+    except Exception as error:
+        print(f"{style.RED}dndbot_generate image error {error}...{style.RESET}")
+        return False
 
 def is_json(jsonString):
     try:
