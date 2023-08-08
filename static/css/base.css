@@ -113,6 +113,10 @@ nav {
   text-align: center;
 }
 
+.pad-top-10 {
+  margin-top: 10px;
+}
+
 .pad-top-25 {
   margin-top: 25px;
 }
@@ -157,4 +161,16 @@ nav {
 
 .center-column {
   align-items: center;
+}
+
+.cgap-3 {
+  column-gap: 3%;
+}
+
+.cgap-5 {
+  column-gap: 5%;
+}
+
+.jc-center {
+  justify-content: center;
 }
