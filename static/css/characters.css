@@ -3,29 +3,36 @@
     flex-direction: column;
 }
 
-img {
-    border-radius: 5%;
-    max-width: 20%;
-    max-height: 20%;
-}
-
 .character {
     display: flex;
     width: 80%;
     align-self: center;
+    flex-wrap: wrap;
+    padding-bottom: 50px;
+    border-bottom: 3px solid #bbb;
+}
+
+.character-image{
+    max-width: 25%;
+    max-height: 25%;
+}
+
+img {
+    border-radius: 5%;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .character-info {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    max-width: 75%;
 }
 
 .character-name {
     text-transform: uppercase;
     letter-spacing: 5px;
     font-size: 20px;
-    margin-left: 2.5rem;
     font-weight: bold;
 }
 
@@ -33,27 +40,58 @@ img {
     text-transform: uppercase;
     letter-spacing: 3px;
     font-size: 15px;
-    margin-left: 2.5rem;
     font-weight: bold;
 }
 
-.character-subinfo{
+.character-subinfo {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
+    max-height: 9.5rem;
 }
 
 .character-stats {
-    padding-top: 10px;
     display: flex;
     flex-direction: column;
     width: fit-content;
-    margin-left: 2.5rem;
     align-items: center;
+}
+
+.character-stats-horizontal {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-height: 1.8rem;
+}
+
+.fixed-height-10 {
+    height: 10rem;
+}
+
+.left-indent {
+    margin-left: 2.5rem;
+}
+
+.left-indent-smaller {
+    margin-left: 1.5rem;
+}
+
+.left-indent-xs {
+    margin-left: 0.5rem;
 }
 
 .stat-icon {
     font-size: 75px;
+    color: #b3bed0;
+}
+
+.stat-icon-s {
+    font-size: 45px;
+    color: #b3bed0;
+}
+
+.stat-icon-xl {
+    font-size: 100px;
     color: #b3bed0;
 }
 
@@ -64,9 +102,126 @@ img {
     text-transform: capitalize;
 }
 
+.stat-sublabel {
+    font-size: 15px;
+    font-weight: bold;
+    align-self: center;
+}
+
 .stat-value {
     font-size: 20px;
     font-weight: bold;
     align-self: center;
-    transform: translateY(-77px);
+    transform: translateY(-75px);
+}
+
+.stat-value-xl {
+    font-size: 30px;
+    font-weight: bold;
+    align-self: center;
+    transform: translateY(-105px);
+}
+
+.stat-value-horizontal {
+    font-size: 20px;
+    font-weight: bold;
+    align-self: center;
+    transform: translateX(35px);
+}
+
+.stat-value-highlighted {
+    font-size: 20px;
+    font-weight: bold;
+    align-self: center;
+    transform: translateY(-95px);
+    background-color: #e6eefb80;
+    width: 50px;
+    text-align: center;
+    border-radius: 50%;
+}
+
+.character-stats-block {
+    display: flex;
+    flex-direction: column;
+    background-color: #e6eefb80;
+    border-radius: 20px;
+    min-width: 10%;
+}
+
+.column-block-pad {
+    padding: 20px 15px 0px 15px;
+}
+
+.row-block-pad {
+    padding: 20px 15px 20px 15px;
+}
+
+.body-description {
+    letter-spacing: 3px;
+    font-size: 15px;
+}
+
+.fixed-width-text {
+    width: 2rem;
+    text-align: right;
+    padding-right: 3px;
+}
+
+.fixed-width-text-med {
+    width: 3rem;
+}
+
+.fixed-width-text-large {
+    width: 8rem;
+}
+
+.fixed-width-text-xlarge {
+    width: 23.5rem;
+    text-align: justify;
+}
+
+.horizontal-block-bottom-label  {
+    font-size: 15px;
+    font-weight: bold;
+    align-self: center;
+    text-align: center;
+    width: 100%;
+    justify-content: center;
+    text-transform: uppercase;
+    transform: translateY(20px);
+    letter-spacing: 3px;
+}
+
+.multirow-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+.width-65p {
+    width: 65%;
+}
+
+.minwidth-26p {
+    min-width: 26%;
+}
+
+.minwidth-32p {
+    min-width: 32%;
+}
+
+.table-header{ 
+    font-size: 14px;
+    color: #224555ad;
+    align-self: flex-start;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.table-body{ 
+    font-size: 14px;
+    align-self: flex-start;
+    font-weight: 600;
+    text-transform: capitalize;
 }

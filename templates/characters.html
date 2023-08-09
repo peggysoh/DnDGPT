@@ -22,71 +22,629 @@
 <div class="container">
     {% for character in characters %}
         <div class="character pad-top-50">
-            <img src="{% static character.imageUrl %}"/><br><br>
+            <div class="character-image">
+                <img src="{% static character.imageUrl %}"/>
+            </div>
             <div class="character-info">
-                <span class="character-name">{{character.firstName}} {{character.lastName}} (lvl {{character.level}})</span>
-                <div class="character-subinfo cgap-5">
-                    <span class="character-subtitle">Race/class: {{character.race}} {{ character.class }}</span>
-                    <span class="character-subtitle">Alignment: {{character.alignment}}</span>
-                    <span class="character-subtitle">Background: {{character.background}}</span>
+                <span class="character-name left-indent">{{ character.firstName }} {{ character.lastName }} (lvl {{ character.level }})</span>
+                <div class="character-subinfo cgap-3 pad-top-10">
+                    <span class="character-subtitle left-indent">Race/class: {{ character.race }} {{ character.class }}</span>
+                    <span class="character-subtitle left-indent">Alignment: {{ character.alignment }}</span>
+                    <span class="character-subtitle left-indent">Background: {{ character.background }}</span>
                 </div>
-                <div class="character-subinfo cgap-5 pad-top-10 jc-center">
-                    <div class="character-stats">
+                <div class="character-subinfo cgap-5 pad-top-25 jc-center">
+                    <div class="character-stats fixed-height-10 pad-top-10">
                         <i class="fa-solid fa-heart stat-icon"></i> 
                         <span class="stat-label">Max HP</span>                   
-                        <span class="stat-value">{{character.maxHp}}</span>
+                        <span class="stat-value">{{ character.maxHp }}</span>
                     </div>
-                    <div class="character-stats">
+                    <div class="character-stats fixed-height-10 left-indent pad-top-10">
                         <i class="fa-solid fa-shield stat-icon"></i> 
-                        <span class="stat-label">{{character.armorClass.type}}</span>                   
-                        <span class="stat-value">{{character.armorClass.value}}</span>
+                        <span class="stat-label">{{ character.armorClass.type }}</span>                   
+                        <span class="stat-value">{{ character.armorClass.value }}</span>
                     </div>
-                    <div class="character-stats">
+                    <div class="character-stats fixed-height-10 left-indent pad-top-10">
                         <i class="fa-solid fa-certificate stat-icon"></i> 
                         <span class="stat-label">Initiative</span>                   
-                        <span class="stat-value">+{{character.stats.dexterity.abilityModifier}}</span>
+                        <span class="stat-value">+{{ character.stats.dexterity.abilityModifier }}</span>
                     </div>
-                    <div class="character-stats">
+                    <div class="character-stats fixed-height-10 left-indent pad-top-10">
                         <i class="fa-solid fa-diamond stat-icon"></i> 
                         <span class="stat-label">Speed</span>                   
-                        <span class="stat-value">{{character.speed}}</span>
+                        <span class="stat-value">{{ character.speed }}</span>
+                    </div>
+                    <div class="character-stats fixed-height-10 left-indent pad-top-10">
+                        <i class="fa-solid fa-square stat-icon"></i> 
+                        <span class="stat-label">Hit Dice</span>                   
+                        <span class="stat-value">{{ character.hitDice }}</span>
                     </div>
                 </div>
-                <div class="character-subinfo cgap-5 pad-top-10 jc-center">
-                    <div class="character-stats">
-                        <i class="fa-solid fa-square stat-icon"></i> 
-                        <span class="stat-label">Strength</span>                  
-                        <span class="stat-value">{{character.stats.strength.abilityScore}}</span>
+                <div class="character-subinfo">
+                    <span class="body-description left-indent">{{ character.physicalDescription }}</span>
+                </div>
+            </div>
+            <div class="character-stats-block cgap-5 pad-top-25 column-block-pad jc-center center-column">
+                <div class="character-stats fixed-height-10">
+                    <i class="fa-solid fa-square stat-icon-xl"></i> 
+                    <span class="stat-label pad-top-10">Strength</span>
+                    <span class="stat-value-xl">
+                        {% if character.stats.strength.abilityModifier >= 0 %}
+                            +{{ character.stats.strength.abilityModifier }}
+                        {% else %}
+                            {{ character.stats.strength.abilityModifier }}
+                        {% endif %}
+                    </span>
+                    <span class="stat-value-highlighted">{{ character.stats.strength.abilityScore }}</span>
+                </div>
+                <div class="character-stats fixed-height-10">
+                    <i class="fa-solid fa-square stat-icon-xl"></i> 
+                    <span class="stat-label pad-top-10">Dexterity</span>
+                    <span class="stat-value-xl">
+                        {% if character.stats.dexterity.abilityModifier >= 0 %}
+                            +{{ character.stats.dexterity.abilityModifier }}
+                        {% else %}
+                            {{ character.stats.dexterity.abilityModifier }}
+                        {% endif %}
+                    </span>
+                    <span class="stat-value-highlighted">{{ character.stats.dexterity.abilityScore }}</span>
+                </div>
+                <div class="character-stats fixed-height-10">
+                    <i class="fa-solid fa-square stat-icon-xl"></i> 
+                    <span class="stat-label pad-top-10">Constitution</span>
+                    <span class="stat-value-xl">
+                        {% if character.stats.constitution.abilityModifier >= 0 %}
+                            +{{ character.stats.constitution.abilityModifier }}
+                        {% else %}
+                            {{ character.stats.constitution.abilityModifier }}
+                        {% endif %}
+                    </span>
+                    <span class="stat-value-highlighted">{{ character.stats.constitution.abilityScore }}</span>
+                </div>
+                <div class="character-stats fixed-height-10">
+                    <i class="fa-solid fa-square stat-icon-xl"></i> 
+                    <span class="stat-label pad-top-10">Intelligence</span>
+                    <span class="stat-value-xl">
+                        {% if character.stats.intelligence.abilityModifier >= 0 %}
+                            +{{ character.stats.intelligence.abilityModifier }}
+                        {% else %}
+                            {{ character.stats.intelligence.abilityModifier }}
+                        {% endif %}
+                    </span>
+                    <span class="stat-value-highlighted">{{ character.stats.intelligence.abilityScore }}</span>
+                </div>
+                <div class="character-stats fixed-height-10">
+                    <i class="fa-solid fa-square stat-icon-xl"></i> 
+                    <span class="stat-label pad-top-10">Widsdom</span>
+                    <span class="stat-value-xl">
+                        {% if character.stats.wisdom.abilityModifier >= 0 %}
+                            +{{ character.stats.wisdom.abilityModifier }}
+                        {% else %}
+                            {{ character.stats.wisdom.abilityModifier }}
+                        {% endif %}
+                    </span>
+                    <span class="stat-value-highlighted">{{ character.stats.wisdom.abilityScore }}</span>
+                </div>
+                <div class="character-stats fixed-height-10">
+                    <i class="fa-solid fa-square stat-icon-xl"></i> 
+                    <span class="stat-label pad-top-10">Charisma</span>
+                    <span class="stat-value-xl">
+                        {% if character.stats.charisma.abilityModifier >= 0 %}
+                            +{{ character.stats.charisma.abilityModifier }}
+                        {% else %}
+                            {{ character.stats.charisma.abilityModifier }}
+                        {% endif %}
+                    </span>
+                    <span class="stat-value-highlighted">{{ character.stats.charisma.abilityScore }}</span>
+                </div>
+            </div>
+            <div class="character-info minwidth-26p">
+                <div class="character-stats-block left-indent-smaller pad-top-25 row-block-pad jc-center">
+                    <div class="character-stats-horizontal">
+                        <span class="stat-value-horizontal">+2</span>
+                        <i class="fa-solid fa-circle stat-icon-s"></i> 
+                        <div class="multirow-text width-65p">
+                            <span class="stat-label left-indent-xs">Proficiency Bonus</span>
+                        </div>
                     </div>
-                    <div class="character-stats">
-                        <i class="fa-solid fa-square stat-icon"></i> 
-                        <span class="stat-label">Dexterity</span>                         
-                        <span class="stat-value">{{character.stats.dexterity.abilityScore}}</span>
+                </div>
+                <div class="character-stats-block left-indent-smaller pad-top-10 row-block-pad">
+                    <div class="character-stats-horizontal left-indent">
+                        {% if character.stats.strength.savingThrow.isProficient == True %}
+                            <i class="fa-solid fa-circle"></i> 
+                        {% else %}
+                            <i class="fa-regular fa-circle"></i> 
+                        {% endif %}
+                        <span class="stat-label left-indent-xs fixed-width-text">
+                            {% if character.stats.strength.savingThrow.value >= 0 %}
+                                +{{ character.stats.strength.savingThrow.value }}
+                            {% else %}
+                                {{ character.stats.strength.savingThrow.value }}
+                            {% endif %}
+                        </span>
+                        <span class="stat-label left-indent-xs">Strength</span>
                     </div>
-                    <div class="character-stats">
-                        <i class="fa-solid fa-square stat-icon"></i> 
-                        <span class="stat-label">Constitution</span>                   
-                        <span class="stat-value">{{character.stats.constitution.abilityScore}}</span>
+                    <div class="character-stats-horizontal left-indent">
+                        {% if character.stats.dexterity.savingThrow.isProficient %}
+                            <i class="fa-solid fa-circle"></i> 
+                        {% else %}
+                            <i class="fa-regular fa-circle"></i> 
+                        {% endif %}
+                        <span class="stat-label left-indent-xs fixed-width-text">
+                            {% if character.stats.dexterity.savingThrow.value >= 0 %}
+                                +{{ character.stats.dexterity.savingThrow.value }}
+                            {% else %}
+                                {{ character.stats.dexterity.savingThrow.value }}
+                            {% endif %}
+                        </span>
+                        <span class="stat-label left-indent-xs">Dexterity</span>
                     </div>
-                    <div class="character-stats">
-                        <i class="fa-solid fa-square stat-icon"></i> 
-                        <span class="stat-label">Intelligence</span>            
-                        <span class="stat-value">{{character.stats.intelligence.abilityScore}}</span>
+                    <div class="character-stats-horizontal left-indent">
+                        {% if character.stats.constitution.savingThrow.isProficient %}
+                            <i class="fa-solid fa-circle"></i> 
+                        {% else %}
+                            <i class="fa-regular fa-circle"></i> 
+                        {% endif %}
+                        <span class="stat-label left-indent-xs fixed-width-text">
+                            {% if character.stats.constitution.savingThrow.value >= 0 %}
+                                +{{ character.stats.constitution.savingThrow.value }}
+                            {% else %}
+                                {{ character.stats.constitution.savingThrow.value }}
+                            {% endif %}
+                        </span>
+                        <span class="stat-label left-indent-xs">Constitution</span>
                     </div>
-                    <div class="character-stats">
-                        <i class="fa-solid fa-square stat-icon"></i> 
-                        <span class="stat-label">Widsdom</span>                
-                        <span class="stat-value">{{character.stats.wisdom.abilityScore}}</span>
+                    <div class="character-stats-horizontal left-indent">
+                        {% if character.stats.intelligence.savingThrow.isProficient %}
+                            <i class="fa-solid fa-circle"></i> 
+                        {% else %}
+                            <i class="fa-regular fa-circle"></i> 
+                        {% endif %}
+                        <span class="stat-label left-indent-xs fixed-width-text">
+                            {% if character.stats.intelligence.savingThrow.value >= 0 %}
+                                +{{ character.stats.intelligence.savingThrow.value }}
+                            {% else %}
+                                {{ character.stats.intelligence.savingThrow.value }}
+                            {% endif %}
+                        </span>
+                        <span class="stat-label left-indent-xs">Intelligence</span>
                     </div>
-                    <div class="character-stats">
-                        <i class="fa-solid fa-square stat-icon"></i> 
-                        <span class="stat-label">Charisma</span>            
-                        <span class="stat-value">{{character.stats.charisma.abilityScore}}</span>
+                    <div class="character-stats-horizontal left-indent">
+                        {% if character.stats.wisdom.savingThrow.isProficient %}
+                            <i class="fa-solid fa-circle"></i> 
+                        {% else %}
+                            <i class="fa-regular fa-circle"></i> 
+                        {% endif %}
+                        <span class="stat-label left-indent-xs fixed-width-text">
+                            {% if character.stats.wisdom.savingThrow.value >= 0 %}
+                                +{{ character.stats.wisdom.savingThrow.value }}
+                            {% else %}
+                                {{ character.stats.wisdom.savingThrow.value }}
+                            {% endif %}
+                        </span>
+                        <span class="stat-label left-indent-xs">Widsdom</span>
+                    </div>
+                    <div class="character-stats-horizontal left-indent">
+                        {% if character.stats.charisma.savingThrow.isProficient %}
+                            <i class="fa-solid fa-circle"></i> 
+                        {% else %}
+                            <i class="fa-regular fa-circle"></i> 
+                        {% endif %}
+                        <span class="stat-label left-indent-xs fixed-width-text">
+                            {% if character.stats.charisma.savingThrow.value >= 0 %}
+                                +{{ character.stats.charisma.savingThrow.value }}
+                            {% else %}
+                                {{ character.stats.charisma.savingThrow.value }}
+                            {% endif %}
+                        </span>
+                        <span class="stat-label left-indent-xs">Charisma</span>
+                    </div>
+                    <div class="character-stats-horizontal horizontal-block-bottom-label">
+                        <span>Saving Throws</span>
+                    </div>
+                </div>
+                <div class="character-stats-block left-indent-smaller pad-top-10 row-block-pad">
+                    <div class="character-stats-horizontal left-indent">
+                        {% if character.stats.dexterity.acrobatics.isProficient == True %}
+                            <i class="fa-solid fa-circle"></i> 
+                        {% else %}
+                            <i class="fa-regular fa-circle"></i> 
+                        {% endif %}
+                        <span class="stat-label left-indent-xs fixed-width-text">
+                            {% if character.stats.dexterity.acrobatics.value >= 0 %}
+                                +{{ character.stats.dexterity.acrobatics.value }}
+                            {% else %}
+                                {{ character.stats.dexterity.acrobatics.value }}
+                            {% endif %}
+                        </span>
+                        <span class="stat-label left-indent-xs">Acrobatics</span>
+                        <span class="stat-sublabel left-indent-xs">(dex)</span>
+                    </div>
+                    <div class="character-stats-horizontal left-indent">
+                        {% if character.stats.wisdom.animalHandling.isProficient == True %}
+                            <i class="fa-solid fa-circle"></i> 
+                        {% else %}
+                            <i class="fa-regular fa-circle"></i> 
+                        {% endif %}
+                        <span class="stat-label left-indent-xs fixed-width-text">
+                            {% if character.stats.wisdom.animalHandling.value >= 0 %}
+                                +{{ character.stats.wisdom.animalHandling.value }}
+                            {% else %}
+                                {{ character.stats.wisdom.animalHandling.value }}
+                            {% endif %}
+                        </span>
+                        <span class="stat-label left-indent-xs">Animal Handling</span>
+                        <span class="stat-sublabel left-indent-xs">(wis)</span>
+                    </div>
+                    <div class="character-stats-horizontal left-indent">
+                        {% if character.stats.intelligence.arcana.isProficient == True %}
+                            <i class="fa-solid fa-circle"></i> 
+                        {% else %}
+                            <i class="fa-regular fa-circle"></i> 
+                        {% endif %}
+                        <span class="stat-label left-indent-xs fixed-width-text">
+                            {% if character.stats.intelligence.arcana.value >= 0 %}
+                                +{{ character.stats.intelligence.arcana.value }}
+                            {% else %}
+                                {{ character.stats.intelligence.arcana.value }}
+                            {% endif %}
+                        </span>
+                        <span class="stat-label left-indent-xs">Arcana</span>
+                        <span class="stat-sublabel left-indent-xs">(int)</span>
+                    </div>
+                    <div class="character-stats-horizontal left-indent">
+                        {% if character.stats.strength.athletics.isProficient == True %}
+                            <i class="fa-solid fa-circle"></i> 
+                        {% else %}
+                            <i class="fa-regular fa-circle"></i> 
+                        {% endif %}
+                        <span class="stat-label left-indent-xs fixed-width-text">
+                            {% if character.stats.strength.athletics.value >= 0 %}
+                                +{{ character.stats.strength.athletics.value }}
+                            {% else %}
+                                {{ character.stats.strength.athletics.value }}
+                            {% endif %}
+                        </span>
+                        <span class="stat-label left-indent-xs">Athletics</span>
+                        <span class="stat-sublabel left-indent-xs">(str)</span>
+                    </div>
+                    <div class="character-stats-horizontal left-indent">
+                        {% if character.stats.charisma.deception.isProficient == True %}
+                            <i class="fa-solid fa-circle"></i> 
+                        {% else %}
+                            <i class="fa-regular fa-circle"></i> 
+                        {% endif %}
+                        <span class="stat-label left-indent-xs fixed-width-text">
+                            {% if character.stats.charisma.deception.value >= 0 %}
+                                +{{ character.stats.charisma.deception.value }}
+                            {% else %}
+                                {{ character.stats.charisma.deception.value }}
+                            {% endif %}
+                        </span>
+                        <span class="stat-label left-indent-xs">Deception</span>
+                        <span class="stat-sublabel left-indent-xs">(cha)</span>
+                    </div>
+                    <div class="character-stats-horizontal left-indent">
+                        {% if character.stats.intelligence.history.isProficient == True %}
+                            <i class="fa-solid fa-circle"></i> 
+                        {% else %}
+                            <i class="fa-regular fa-circle"></i> 
+                        {% endif %}
+                        <span class="stat-label left-indent-xs fixed-width-text">
+                            {% if character.stats.intelligence.history.value >= 0 %}
+                                +{{ character.stats.intelligence.history.value }}
+                            {% else %}
+                                {{ character.stats.intelligence.history.value }}
+                            {% endif %}
+                        </span>
+                        <span class="stat-label left-indent-xs">History</span>
+                        <span class="stat-sublabel left-indent-xs">(int)</span>
+                    </div>
+                    <div class="character-stats-horizontal left-indent">
+                        {% if character.stats.wisdom.insight.isProficient == True %}
+                            <i class="fa-solid fa-circle"></i> 
+                        {% else %}
+                            <i class="fa-regular fa-circle"></i> 
+                        {% endif %}
+                        <span class="stat-label left-indent-xs fixed-width-text">
+                            {% if character.stats.wisdom.insight.value >= 0 %}
+                                +{{ character.stats.wisdom.insight.value }}
+                            {% else %}
+                                {{ character.stats.wisdom.insight.value }}
+                            {% endif %}
+                        </span>
+                        <span class="stat-label left-indent-xs">Insight</span>
+                        <span class="stat-sublabel left-indent-xs">(wis)</span>
+                    </div>
+                    <div class="character-stats-horizontal left-indent">
+                        {% if character.stats.charisma.intimidation.isProficient == True %}
+                            <i class="fa-solid fa-circle"></i> 
+                        {% else %}
+                            <i class="fa-regular fa-circle"></i> 
+                        {% endif %}
+                        <span class="stat-label left-indent-xs fixed-width-text">
+                            {% if character.stats.charisma.intimidation.value >= 0 %}
+                                +{{ character.stats.charisma.intimidation.value }}
+                            {% else %}
+                                {{ character.stats.charisma.intimidation.value }}
+                            {% endif %}
+                        </span>
+                        <span class="stat-label left-indent-xs">Intimidation</span>
+                        <span class="stat-sublabel left-indent-xs">(cha)</span>
+                    </div>
+                    <div class="character-stats-horizontal left-indent">
+                        {% if character.stats.intelligence.investigation.isProficient == True %}
+                            <i class="fa-solid fa-circle"></i> 
+                        {% else %}
+                            <i class="fa-regular fa-circle"></i> 
+                        {% endif %}
+                        <span class="stat-label left-indent-xs fixed-width-text">
+                            {% if character.stats.intelligence.investigation.value >= 0 %}
+                                +{{ character.stats.intelligence.investigation.value }}
+                            {% else %}
+                                {{ character.stats.intelligence.investigation.value }}
+                            {% endif %}
+                        </span>
+                        <span class="stat-label left-indent-xs">Investigation</span>
+                        <span class="stat-sublabel left-indent-xs">(int)</span>
+                    </div>
+                    <div class="character-stats-horizontal left-indent">
+                        {% if character.stats.wisdom.medicine.isProficient == True %}
+                            <i class="fa-solid fa-circle"></i> 
+                        {% else %}
+                            <i class="fa-regular fa-circle"></i> 
+                        {% endif %}
+                        <span class="stat-label left-indent-xs fixed-width-text">
+                            {% if character.stats.wisdom.medicine.value >= 0 %}
+                                +{{ character.stats.wisdom.medicine.value }}
+                            {% else %}
+                                {{ character.stats.wisdom.medicine.value }}
+                            {% endif %}
+                        </span>
+                        <span class="stat-label left-indent-xs">Medicine</span>
+                        <span class="stat-sublabel left-indent-xs">(wis)</span>
+                    </div>
+                    <div class="character-stats-horizontal left-indent">
+                        {% if character.stats.intelligence.nature.isProficient == True %}
+                            <i class="fa-solid fa-circle"></i> 
+                        {% else %}
+                            <i class="fa-regular fa-circle"></i> 
+                        {% endif %}
+                        <span class="stat-label left-indent-xs fixed-width-text">
+                            {% if character.stats.intelligence.nature.value >= 0 %}
+                                +{{ character.stats.intelligence.nature.value }}
+                            {% else %}
+                                {{ character.stats.intelligence.nature.value }}
+                            {% endif %}
+                        </span>
+                        <span class="stat-label left-indent-xs">Nature</span>
+                        <span class="stat-sublabel left-indent-xs">(int)</span>
+                    </div>
+                    <div class="character-stats-horizontal left-indent">
+                        {% if character.stats.wisdom.perception.isProficient == True %}
+                            <i class="fa-solid fa-circle"></i> 
+                        {% else %}
+                            <i class="fa-regular fa-circle"></i> 
+                        {% endif %}
+                        <span class="stat-label left-indent-xs fixed-width-text">
+                            {% if character.stats.wisdom.perception.value >= 0 %}
+                                +{{ character.stats.wisdom.perception.value }}
+                            {% else %}
+                                {{ character.stats.wisdom.perception.value }}
+                            {% endif %}
+                        </span>
+                        <span class="stat-label left-indent-xs">Perception</span>
+                        <span class="stat-sublabel left-indent-xs">(wis)</span>
+                    </div>
+                    <div class="character-stats-horizontal left-indent">
+                        {% if character.stats.charisma.performance.isProficient == True %}
+                            <i class="fa-solid fa-circle"></i> 
+                        {% else %}
+                            <i class="fa-regular fa-circle"></i> 
+                        {% endif %}
+                        <span class="stat-label left-indent-xs fixed-width-text">
+                            {% if character.stats.charisma.performance.value >= 0 %}
+                                +{{ character.stats.charisma.performance.value }}
+                            {% else %}
+                                {{ character.stats.charisma.performance.value }}
+                            {% endif %}
+                        </span>
+                        <span class="stat-label left-indent-xs">Performance</span>
+                        <span class="stat-sublabel left-indent-xs">(cha)</span>
+                    </div>
+                    <div class="character-stats-horizontal left-indent">
+                        {% if character.stats.charisma.persuasion.isProficient == True %}
+                            <i class="fa-solid fa-circle"></i> 
+                        {% else %}
+                            <i class="fa-regular fa-circle"></i> 
+                        {% endif %}
+                        <span class="stat-label left-indent-xs fixed-width-text">
+                            {% if character.stats.charisma.persuasion.value >= 0 %}
+                                +{{ character.stats.charisma.persuasion.value }}
+                            {% else %}
+                                {{ character.stats.charisma.persuasion.value }}
+                            {% endif %}
+                        </span>
+                        <span class="stat-label left-indent-xs">Persuasion</span>
+                        <span class="stat-sublabel left-indent-xs">(cha)</span>
+                    </div>
+                    <div class="character-stats-horizontal left-indent">
+                        {% if character.stats.intelligence.religion.isProficient == True %}
+                            <i class="fa-solid fa-circle"></i> 
+                        {% else %}
+                            <i class="fa-regular fa-circle"></i> 
+                        {% endif %}
+                        <span class="stat-label left-indent-xs fixed-width-text">
+                            {% if character.stats.intelligence.religion.value >= 0 %}
+                                +{{ character.stats.intelligence.religion.value }}
+                            {% else %}
+                                {{ character.stats.intelligence.religion.value }}
+                            {% endif %}
+                        </span>
+                        <span class="stat-label left-indent-xs">Religion</span>
+                        <span class="stat-sublabel left-indent-xs">(int)</span>
+                    </div>
+                    <div class="character-stats-horizontal left-indent">
+                        {% if character.stats.dexterity.sleightOfHand == True %}
+                            <i class="fa-solid fa-circle"></i> 
+                        {% else %}
+                            <i class="fa-regular fa-circle"></i> 
+                        {% endif %}
+                        <span class="stat-label left-indent-xs fixed-width-text">
+                            {% if character.stats.dexterity.sleightOfHand.value >= 0 %}
+                                +{{ character.stats.dexterity.sleightOfHand.value }}
+                            {% else %}
+                                {{ character.stats.dexterity.sleightOfHand.value }}
+                            {% endif %}
+                        </span>
+                        <span class="stat-label left-indent-xs">Sleight of hand</span>
+                        <span class="stat-sublabel left-indent-xs">(dex)</span>
+                    </div>
+                    <div class="character-stats-horizontal left-indent">
+                        {% if character.stats.dexterity.stealth.isProficient == True %}
+                            <i class="fa-solid fa-circle"></i> 
+                        {% else %}
+                            <i class="fa-regular fa-circle"></i> 
+                        {% endif %}
+                        <span class="stat-label left-indent-xs fixed-width-text">
+                            {% if character.stats.dexterity.stealth.value >= 0 %}
+                                +{{ character.stats.dexterity.stealth.value }}
+                            {% else %}
+                                {{ character.stats.dexterity.stealth.value }}
+                            {% endif %}
+                        </span>
+                        <span class="stat-label left-indent-xs">Stealth</span>
+                        <span class="stat-sublabel left-indent-xs">(dex)</span>
+                    </div>
+                    <div class="character-stats-horizontal left-indent">
+                        {% if character.stats.wisdom.survival.isProficient == True %}
+                            <i class="fa-solid fa-circle"></i> 
+                        {% else %}
+                            <i class="fa-regular fa-circle"></i> 
+                        {% endif %}
+                        <span class="stat-label left-indent-xs fixed-width-text">
+                            {% if character.stats.wisdom.survival.value >= 0 %}
+                                +{{ character.stats.wisdom.survival.value }}
+                            {% else %}
+                                {{ character.stats.wisdom.survival.value }}
+                            {% endif %}
+                        </span>
+                        <span class="stat-label left-indent-xs">Survival</span>
+                        <span class="stat-sublabel left-indent-xs">(wis)</span>
+                    </div>
+                    <div class="character-stats-horizontal horizontal-block-bottom-label">
+                        <span>Skills</span>
+                    </div>
+                </div>
+                <div class="character-stats-block left-indent-smaller pad-top-10 row-block-pad jc-center">
+                    <div class="character-stats-horizontal">
+                        <span class="stat-value-horizontal">{{ character.stats.wisdom.perception.value|add:"10" }}</span>
+                        <i class="fa-solid fa-circle stat-icon-s"></i> 
+                        <div class="multirow-text width-65p">
+                            <span class="stat-label left-indent-xs">Passive Wisdom</span>
+                            <span class="stat-sublabel left-indent-xs">(perception)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="character-info minwidth-32p">
+                <div class="character-stats-block left-indent-smaller pad-top-25 row-block-pad">
+                    <div class="character-stats-horizontal">
+                        <span class="table-header fixed-width-text-large">Name</span>
+                        <span class="table-header fixed-width-text-med left-indent-smaller ">Bonus</span>
+                        <span class="table-header left-indent-smaller ">Damage/Type</span>
+                    </div>
+                    {% for weapon in character.equipment.weapons %}
+                        <div class="character-stats-horizontal">
+                            <span class="stat-label fixed-width-text-large">{{ weapon.name }}</span>
+                            <span class="stat-label fixed-width-text-med left-indent-smaller">+{{ weapon.attackModifier }}</span>
+                            <span class="stat-label left-indent-smaller">{{ weapon.damage }} {{ weapon.damageType }}</span>
+                        </div>
+                        <div class="character-stats-horizontal">
+                            <span class="table-header fixed-width-text-large">{{ weapon.type|join:", " }}</span>
+                        </div>
+                    {% endfor %}
+                    <div class="character-stats-horizontal pad-top-25">
+                        <span class="table-header">Others</span>
+                    </div>
+                    <div class="character-stats-horizontal">
+                        <span class="table-body fixed-width-text-xlarge">{{ character.equipment.others|join:", " }}</span>
+                    </div>
+                    <div class="character-stats-horizontal pad-top-25">
+                        <span class="table-header">Money</span>
+                    </div>
+                    <div class="character-stats-horizontal">
+                        <span class="table-body fixed-width-text-xlarge">{{ character.equipment.gold }} GP</span>
+                    </div>
+                    <div class="character-stats-horizontal horizontal-block-bottom-label">
+                        <span>Equipment</span>
+                    </div>
+                </div>
+                <div class="character-stats-block left-indent-smaller pad-top-25 row-block-pad">
+                    <div class="character-stats-horizontal">
+                        <span class="table-body fixed-width-text-xlarge">{{ character.personalityTraits }}</span>
+                    </div>
+                    <div class="character-stats-horizontal horizontal-block-bottom-label">
+                        <span>Personality Traits</span>
+                    </div>
+                </div>
+                <div class="character-stats-block left-indent-smaller pad-top-25 row-block-pad">
+                    <div class="character-stats-horizontal">
+                        <span class="table-body fixed-width-text-xlarge">{{ character.ideals }}</span>
+                    </div>
+                    <div class="character-stats-horizontal horizontal-block-bottom-label">
+                        <span>Ideals</span>
+                    </div>
+                </div>
+                <div class="character-stats-block left-indent-smaller pad-top-25 row-block-pad">
+                    <div class="character-stats-horizontal">
+                        <span class="table-body fixed-width-text-xlarge">{{ character.bonds }}</span>
+                    </div>
+                    <div class="character-stats-horizontal horizontal-block-bottom-label">
+                        <span>Bonds</span>
+                    </div>
+                </div>
+                <div class="character-stats-block left-indent-smaller pad-top-25 row-block-pad">
+                    <div class="character-stats-horizontal">
+                        <span class="table-body fixed-width-text-xlarge">{{ character.flaws }}</span>
+                    </div>
+                    <div class="character-stats-horizontal horizontal-block-bottom-label">
+                        <span>Flaws</span>
+                    </div>
+                </div>
+            </div>
+            <div class="character-info minwidth-32p">
+                <div class="character-stats-block left-indent-smaller pad-top-25 row-block-pad">
+                    {% for feature in character.feature %}
+                        <div class="character-stats-horizontal pad-top-25">
+                            <span class="table-header">{{ feature.name }}</span>
+                        </div>
+                        <div class="character-stats-horizontal">
+                            <span class="table-body fixed-width-text-xlarge">{{ feature.description }}</span>
+                        </div>
+                    {% endfor %}
+                    <div class="character-stats-horizontal horizontal-block-bottom-label">
+                        <span>Features & Traits</span>
+                    </div>
+                </div>
+                <div class="character-stats-block left-indent-smaller pad-top-25 row-block-pad">
+                    <div class="character-stats-horizontal pad-top-25">
+                        <span class="table-header">Proficiencies</span>
+                    </div>
+                    <div class="character-stats-horizontal">
+                        <span class="table-body fixed-width-text-xlarge">{{ character.equipment.proficiencies|join:", " }}</span>
+                    </div>
+                    <div class="character-stats-horizontal pad-top-25">
+                        <span class="table-header">Languages</span>
+                    </div>
+                    <div class="character-stats-horizontal">
+                        <span class="table-body fixed-width-text-xlarge">{{ character.languages|join:", " }}</span>
+                    </div>
+                    <div class="character-stats-horizontal horizontal-block-bottom-label">
+                        <span>Proficiencies & Languages</span>
                     </div>
                 </div>
             </div>
         </div>
-        Character: {{ character }} <br><br>
     {% endfor %}
 </div>
 {% endblock %}
