@@ -54,34 +54,34 @@
                 </div>
                 <div class="character-subinfo cgap-5 pad-top-10 jc-center">
                     <div class="character-stats">
-                        <i class="fa-solid fa-heart stat-icon"></i> 
-                        <span class="stat-label">Strength</span>                   
-                        <span class="stat-value">{{character.maxHp}}</span>
+                        <i class="fa-solid fa-square stat-icon"></i> 
+                        <span class="stat-label">Strength</span>                  
+                        <span class="stat-value">{{character.stats.strength.abilityScore}}</span>
                     </div>
                     <div class="character-stats">
-                        <i class="fa-solid fa-shield stat-icon"></i> 
-                        <span class="stat-label">Dexterity</span>                           
-                        <span class="stat-value">{{character.armorClass.value}}</span>
+                        <i class="fa-solid fa-square stat-icon"></i> 
+                        <span class="stat-label">Dexterity</span>                         
+                        <span class="stat-value">{{character.stats.dexterity.abilityScore}}</span>
                     </div>
                     <div class="character-stats">
-                        <i class="fa-solid fa-certificate stat-icon"></i> 
+                        <i class="fa-solid fa-square stat-icon"></i> 
                         <span class="stat-label">Constitution</span>                   
-                        <span class="stat-value">+{{character.stats.dexterity.abilityModifier}}</span>
+                        <span class="stat-value">{{character.stats.constitution.abilityScore}}</span>
                     </div>
                     <div class="character-stats">
-                        <i class="fa-solid fa-diamond stat-icon"></i> 
-                        <span class="stat-label">Intelligence</span>                   
-                        <span class="stat-value">{{character.speed}}</span>
+                        <i class="fa-solid fa-square stat-icon"></i> 
+                        <span class="stat-label">Intelligence</span>            
+                        <span class="stat-value">{{character.stats.intelligence.abilityScore}}</span>
                     </div>
                     <div class="character-stats">
-                        <i class="fa-solid fa-diamond stat-icon"></i> 
-                        <span class="stat-label">Widsdom</span>                   
-                        <span class="stat-value">{{character.speed}}</span>
+                        <i class="fa-solid fa-square stat-icon"></i> 
+                        <span class="stat-label">Widsdom</span>                
+                        <span class="stat-value">{{character.stats.wisdom.abilityScore}}</span>
                     </div>
                     <div class="character-stats">
-                        <i class="fa-solid fa-diamond stat-icon"></i> 
-                        <span class="stat-label">Charisma</span>                   
-                        <span class="stat-value">{{character.speed}}</span>
+                        <i class="fa-solid fa-square stat-icon"></i> 
+                        <span class="stat-label">Charisma</span>            
+                        <span class="stat-value">{{character.stats.charisma.abilityScore}}</span>
                     </div>
                 </div>
             </div>
