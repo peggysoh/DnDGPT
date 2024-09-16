@@ -1,6 +1,12 @@
 # DnDGPT
 Play DnD with DnDGPT as your DM!
+
 ![Screenshot 2023-07-23 at 17 56 37](https://github.com/peggysoh/DnDGPT/assets/11656725/bac4b8a7-5b69-4314-9a08-27f330db8078)
+![image](https://github.com/user-attachments/assets/f424987a-826c-4d25-b3bb-0a81c6b2ef5e)
+
+Currently implemented:
+- Character sheet generator
+![image](https://github.com/user-attachments/assets/90414300-dd0e-4db0-87f5-1c2812192a64)
 
 # Setup
 
